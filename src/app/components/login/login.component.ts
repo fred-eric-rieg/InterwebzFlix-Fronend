@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,18 +12,21 @@ import { AuthService } from '../../shared/services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   @ViewChild('emailInput') emailElement: ElementRef;
   @ViewChild('passwordInput') passwordElement: ElementRef;
   @ViewChild('submit') submitButton: ElementRef;
+  @ViewChild('bg') bg: ElementRef;
 
   loginForm: FormGroup;
 
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router, private auth: AuthService) {
+  isShowing: boolean = false;
+
+  constructor(private router: Router, private auth: AuthService, private renderer: Renderer2) {
     this.emailElement = new ElementRef('');
     this.passwordElement = new ElementRef('');
     this.submitButton = new ElementRef('');
@@ -31,11 +34,9 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
+    this.bg = new ElementRef('');
   }
 
-  async ngOnInit() {
-
-  }
 
   goToLandingPage() {
     this.router.navigate(['/landingpage']);
@@ -46,11 +47,12 @@ export class LoginComponent implements OnInit {
    * It checks if the form is valid and if so, it calls the login method.
    */
   async postIfValid() {
-    console.log('Login form submitted');
     if (this.loginForm.valid) {
       this.email = this.loginForm.controls['email'].value;
       this.password = this.loginForm.controls['password'].value;
       this.login(this.email, this.password);
+    } else {
+      this.showErrorMessage();
     }
   }
 
@@ -59,23 +61,42 @@ export class LoginComponent implements OnInit {
     try {
       let response = await this.auth.loginWithEmailAndPassword(email, password);
       if (response.access === undefined) {
-        // TODO: show error message
-        console.log('Login failed');
+        this.showErrorMessage();
       } else {
         this.auth.setAccessToken(response.access);
         this.auth.setRefreshToken(response.refresh);
-        console.log('Login successful');
         this.router.navigate(['/main']);
       }
     }
     catch (error) {
-      // TODO: show error message
       console.error(error);
     }
   }
 
-
+  /**
+   * Reveals the password input field.
+   */
+  showPassword() {
+    this.isShowing = !this.isShowing;
+    if (this.isShowing) {
+      this.renderer.setAttribute(this.passwordElement?.nativeElement, 'type', 'text');
+    } else {
+      this.renderer.setAttribute(this.passwordElement?.nativeElement, 'type', 'password');
+    }
+  }
   
 
+  showErrorMessage() {
+    let el = this.renderer.createElement('div');
+    this.renderer.setProperty(el, 'innerText', 'Please check your input!');
+    this.renderer.addClass(el, 'warning')
+    this.renderer.appendChild(this.bg?.nativeElement, el);
+    setTimeout(() => {
+      this.renderer.addClass(el, 'down');
+    }, 2000);
+    setTimeout(() => {
+      this.renderer.removeChild(this.bg?.nativeElement, el);
+    }, 4000);
+  }
 
 }

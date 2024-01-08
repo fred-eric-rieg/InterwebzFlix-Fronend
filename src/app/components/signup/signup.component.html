@@ -1,4 +1,4 @@
-<div class="center-box">
+<div class="center-box" #bg id="bg">
 
     <img src="/assets/img/bg.png" alt="background image">
 
@@ -15,6 +15,8 @@
             <input type="password" name="password" #passwordInput1 formControlName="password" placeholder="Password">
             <input type="password" name="password2" #passwordInput2 formControlName="password2" placeholder="Password confirmation">
             <button primaryButton type="submit" #submit>Register</button>
+            <span (click)="showPasswords()" *ngIf="!isShowing">show passwords</span>
+            <span (click)="showPasswords()" *ngIf="isShowing">hide passwords</span>
         </form>
 
 

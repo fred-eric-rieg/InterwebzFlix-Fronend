@@ -1,4 +1,4 @@
-<div class="center-box">
+<div class="center-box" #bg id="bg">
 
     <img src="/assets/img/bg.png" alt="background image">
 
@@ -13,6 +13,8 @@
             <input type="email" name="email" #emailInput formControlName="email">
             <input type="password" name="password" #passwordInput formControlName="password">
             <button primaryButton type="submit" #submit>Sign In</button>
+            <span (click)="showPassword()" *ngIf="!isShowing">show password</span>
+            <span (click)="showPassword()" *ngIf="isShowing">hide password</span>
         </form>
         
     </div>

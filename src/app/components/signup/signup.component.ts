@@ -22,11 +22,15 @@ export class SignupComponent implements OnInit, AfterViewInit {
   //This reference is used to display an animation while the registration is being processed.
   @ViewChild('loading') loading: ElementRef | undefined;
 
+  @ViewChild('bg') bg: ElementRef;
+
   registration: FormGroup;
 
   email: string = '';
   password: string = '';
   password2: string = '';
+
+  isShowing: boolean = false;
 
 
   constructor(private route: ActivatedRoute, private router: Router, private renderer: Renderer2, private auth: AuthService) {
@@ -37,8 +41,9 @@ export class SignupComponent implements OnInit, AfterViewInit {
     this.registration = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      password2: new FormControl('', [Validators.required, Validators.minLength(8)])
+      password2: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
+    this.bg = new ElementRef('');
   }
 
 
@@ -61,9 +66,17 @@ export class SignupComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/landingpage']);
   }
 
+  /**
+   * Checks if the built-in validators are valid and if the passwords match.
+   * @returns true or false.
+   */
+  isValidForm() {
+    return this.registration.valid && this.registration.controls['password'].value === this.registration.controls['password2'].value;
+  }
+
 
   async postIfValid() {
-    if (this.registration.valid) {
+    if (this.isValidForm()) {
       this.sealRegistration();
       this.showLoading();
       try {
@@ -73,7 +86,35 @@ export class SignupComponent implements OnInit, AfterViewInit {
         console.log(error);
         this.invalidRegistration();
       }
-    } 
+    } else {
+      this.showErrorMessage();
+    }
+  }
+
+
+  showErrorMessage() {
+    let el = this.renderer.createElement('div');
+    this.renderer.setProperty(el, 'innerText', 'Please check your input!');
+    this.renderer.addClass(el, 'warning')
+    this.renderer.appendChild(this.bg?.nativeElement, el);
+    setTimeout(() => {
+      this.renderer.addClass(el, 'down');
+    }, 2000);
+    setTimeout(() => {
+      this.renderer.removeChild(this.bg?.nativeElement, el);
+    }, 4000);
+  }
+
+
+  showPasswords() {
+    this.isShowing = !this.isShowing;
+    if (this.isShowing) {
+      this.renderer.setAttribute(this.passwordElement?.nativeElement, 'type', 'password');
+      this.renderer.setAttribute(this.passwordElement2?.nativeElement, 'type', 'password');
+    } else {
+      this.renderer.setAttribute(this.passwordElement?.nativeElement, 'type', 'text');
+      this.renderer.setAttribute(this.passwordElement2?.nativeElement, 'type', 'text');
+    }
   }
 
   /**
