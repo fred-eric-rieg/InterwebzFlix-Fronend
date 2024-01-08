@@ -19,7 +19,9 @@
 
 @font-face {
     font-family: 'nohemi';
-    src: url('/app/assets/fonts/nohemi.ttf');
+    src: url('/assets/fonts/Nohemi-Medium.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 html  body {
