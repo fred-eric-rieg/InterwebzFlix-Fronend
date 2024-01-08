@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --bg-light: #f4f4f4;
+    --light-color: #333;
+    --light-primary: #e50914;
+    --light-secondary: #ebebeb;
+    --light-tertiary: #ccc;
+    --light-warn: #f44336;
+    --light-accent: #ff9800;
+
+    --bg-dark: #000000;
+    --dark-color: #fff;
+    --dark-primary: #e50914;
+    --dark-secondary: #666;
+    --dark-tertiary: #999;
+    --dark-warn: #f44336;
+    --dark-accent: #ff9800;
+}
+
+@font-face {
+    font-family: 'nohemi';
+    src: url('/app/assets/fonts/nohemi.ttf');
+}
+
+html  body {
+    margin: 0;
+    font-family:'nohemi', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+.dark {
+    background-color: var(--bg-dark);
+}
+
+.light {
+    background-color: var(--bg-light);
+}
