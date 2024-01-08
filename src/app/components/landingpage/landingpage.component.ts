@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ButtonPrimaryDirective } from '../../shared/directives/button-primary.directive';
 
 @Component({
   selector: 'app-landingpage',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonPrimaryDirective],
   templateUrl: './landingpage.component.html',
   styleUrl: './landingpage.component.scss'
 })

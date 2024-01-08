@@ -19,8 +19,8 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     transition: all .3s ease-in-out;
 
     h1 {
@@ -51,7 +51,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 5px;
     background-color: rgba($color: black, $alpha: .7);
 }
@@ -92,12 +92,15 @@ input {
 @media screen and (width > 1200px) {
     header {
         width: 1024px;
+        margin-left: 2rem;
+        margin-right: 2rem;
         align-self: center;
         transition: all .3s ease-in-out;
     }
     
     .container {
         right: 2rem;
+        padding: 2rem;
     }
 
     h2 {
