@@ -21,6 +21,7 @@ export class LandingpageComponent implements OnInit {
 
 
   ngOnInit() {
+    this.router.navigate(['/dashboard']);
   }
 
 
