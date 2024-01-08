@@ -26,7 +26,7 @@ export class LoginComponent {
 
   isShowing: boolean = false;
 
-  constructor(private router: Router, private auth: AuthService, private renderer: Renderer2) {
+  constructor(public router: Router, public auth: AuthService, public renderer: Renderer2) {
     this.emailElement = new ElementRef('');
     this.passwordElement = new ElementRef('');
     this.submitButton = new ElementRef('');

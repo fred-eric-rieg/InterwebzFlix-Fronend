@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
   isShowing: boolean = false;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private renderer: Renderer2, private auth: AuthService) {
+  constructor(public route: ActivatedRoute, private router: Router, private renderer: Renderer2, private auth: AuthService) {
     this.emailElement = new ElementRef('');
     this.passwordElement = new ElementRef('');
     this.passwordElement2 = new ElementRef('');
