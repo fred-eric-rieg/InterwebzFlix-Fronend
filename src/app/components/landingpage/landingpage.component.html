@@ -1,0 +1,21 @@
+<div class="scroller">
+    <header>
+        <h1>Interwebflix</h1>
+        <button  (click)="gotToLogin()">Sign In</button>
+    </header>
+
+    <img class="background" src="/assets/img/bg.png" alt="background image">
+
+    <div class="container">
+        <h2>Sit back and enjoy the show</h2>
+        <p>Watch all your favorite movies and series in one place</p>
+        <p>Enter your Email address and start watching</p>
+
+        <div class="btn-grp">
+            <input type="email" name="email" #emailInput>
+            <button  (click)="redirectIfValid()">Get Started</button>
+        </div>
+        
+    </div>
+
+</div>
