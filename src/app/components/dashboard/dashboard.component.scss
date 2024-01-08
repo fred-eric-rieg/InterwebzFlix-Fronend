@@ -1,0 +1,75 @@
+.header {
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    transition: 0.5s;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    overflow: hidden;
+
+
+    h1 {
+        color: var(--dark-primary);
+    }
+}
+
+main {
+    position: relative;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    overflow: hidden;
+    background-color: var(--bg-dark-1);
+    box-sizing: border-box;
+}
+
+.slide-menu {
+    position: absolute;
+    right: -500px;
+    top: 60px;
+    height: 200px;
+    width: 200px;
+    background-color: var(--bg-dark-2);
+    border-top: 1px solid #fff;
+    box-sizing: border-box;
+    padding: 1rem;
+    z-index: 3;
+}
+
+.slide-in {
+    right: 0;
+    animation: slideIn 0.5s ease-in-out forwards;
+}
+
+.slide-out {
+    right: -500px;
+    animation: slideOut 0.5s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        right: 0;
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
