@@ -1,0 +1,20 @@
+<div class="center-box">
+
+    <img src="/assets/img/bg.png" alt="background image">
+
+    <header>
+        <h1 (click)="goToLandingPage()">Interwebflix</h1>
+    </header>
+
+    <div class="login-container">
+        <h2>Sign In</h2>
+
+        <form class="btn-grp" [formGroup]="loginForm" (ngSubmit)="postIfValid()">
+            <input type="email" name="email" #emailInput formControlName="email">
+            <input type="password" name="password" #passwordInput formControlName="password">
+            <button primaryButton type="submit" #submit>Sign In</button>
+        </form>
+        
+    </div>
+
+</div>
