@@ -3,6 +3,8 @@ import { LandingpageComponent } from './components/landingpage/landingpage.compo
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MainComponent } from './components/dashboard/main/main.component';
+import { InfoComponent } from './components/dashboard/info/info.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landingpage', pathMatch: 'full' },
@@ -10,6 +12,10 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
 
-    { path: 'dashboard', component: DashboardComponent }, //canActivate: [AuthGuard]
+    { path: 'dashboard', component: DashboardComponent, children: [
+        { path: '', redirectTo: 'main', pathMatch: 'full' },
+        { path: 'main', component: MainComponent },
+        { path: 'info', component: InfoComponent },
+    ]},
     { path: '**', redirectTo: 'landingpage' }
 ];
