@@ -1,0 +1,26 @@
+.header {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
+
+span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--dark-primary);
+}
+
+@media screen and (width > 768px) {
+    span {
+        font-size: 2rem;
+    }
+}
