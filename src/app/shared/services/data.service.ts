@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+
+interface subtitles {
+  language: string
+}
+
 interface movies {
   title: string,
   description: string,
@@ -18,13 +23,14 @@ interface movies {
   episode_number: number | null,
   country_of_origin: string,
   age_rating: string,
-  subtitles: object[],
+  subtitles: subtitles[],
   language: string,
   release_date: Date,
   created_at: Date,
   updated_at: Date,
   tags: object[]
 }
+
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +60,7 @@ export class DataService {
         episode_number: null,
         country_of_origin: "Türkiye",
         age_rating: "PG 14",
-        subtitles: [],
+        subtitles: [ {language: "English"}, {language: "Deutsch"}, {language: "Türkçe"}],
         language: "English",
         release_date: new Date(),
         created_at: new Date(),
@@ -78,7 +84,7 @@ export class DataService {
         episode_number: null,
         country_of_origin: "Germany",
         age_rating: "PG 14",
-        subtitles: [],
+        subtitles: [{language: "English"}, {language: "Deutsch"}],
         language: "Deutsch",
         release_date: new Date(),
         created_at: new Date(),
@@ -102,7 +108,7 @@ export class DataService {
         episode_number: null,
         country_of_origin: "USA",
         age_rating: "PG 16",
-        subtitles: [],
+        subtitles: [{language: "English"}],
         language: "English",
         release_date: new Date(),
         created_at: new Date(),
@@ -110,6 +116,7 @@ export class DataService {
         tags: []
       }
     ]);
+    console.log(this.dummyVideos.value);
     this.selectedVideo.next(this.dummyVideos.value[0]);
   }
 
