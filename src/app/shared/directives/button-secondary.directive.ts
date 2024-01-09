@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Renderer2, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[primaryButton]',
+  selector: '[secondaryButton]',
   standalone: true
 })
-export class ButtonPrimaryDirective implements OnInit {
+export class ButtonSecondaryDirective implements OnInit {
 
   constructor(public el: ElementRef, public renderer: Renderer2) { }
   
@@ -13,12 +13,12 @@ export class ButtonPrimaryDirective implements OnInit {
     // Get computed styles from document's root element :root
     const style = getComputedStyle(document.documentElement);
 
-    // Get value of css variable --dark-primary
-    const color = style.getPropertyValue('--dark-primary');
-    const colorHover = style.getPropertyValue('--dark-primary-hover');
+    // Get value of css variable --dark-secondary
+    const secondary = style.getPropertyValue('--dark-secondary');
+    const tertiary = style.getPropertyValue('--dark-tertiary');
 
     // Set background color of host element
-    this.renderer.setStyle(this.el.nativeElement, 'background-color', color);
+    this.renderer.setStyle(this.el.nativeElement, 'background-color', secondary);
 
     this.renderer.setStyle(this.el.nativeElement, 'border-radius', '5px');
     this.renderer.setStyle(this.el.nativeElement, 'border', 'none');
@@ -33,10 +33,10 @@ export class ButtonPrimaryDirective implements OnInit {
 
     // Set hover styles
     this.renderer.listen(this.el.nativeElement, 'mouseover', () => {
-      this.renderer.setStyle(this.el.nativeElement, 'background-color', colorHover);
+      this.renderer.setStyle(this.el.nativeElement, 'background-color', tertiary);
     });
     this.renderer.listen(this.el.nativeElement, 'mouseout', () => {
-      this.renderer.setStyle(this.el.nativeElement, 'background-color', color);
+      this.renderer.setStyle(this.el.nativeElement, 'background-color', secondary);
     });
   }
 }
