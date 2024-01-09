@@ -19,11 +19,23 @@
     padding: 20px;
     overflow-x: scroll;
     box-sizing: border-box;
-    
+
     ::-webkit-scrollbar {
         display: none;
     }
+
     scrollbar-width: none;
+
+    img {
+        cursor: pointer;
+        transition: all 225ms ease-in-out;
+
+        &:hover {
+            transform: translateX(20px) scale(1.2);
+            background-color: var(--bg-dark);
+            transition: all 225ms ease-in-out;
+        }
+    }
 }
 
 @media screen and (width > 768px) {
@@ -31,5 +43,5 @@
         font-size: 2rem;
         transition: all 225ms ease-in-out;
     }
-    
+
 }

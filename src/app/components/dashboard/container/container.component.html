@@ -2,11 +2,7 @@
     <span class="subtitle">My List</span>
 
     <div class="row">
-        <img src="/assets/img/thumbnail.png" alt="thumbnail">
-        <img src="/assets/img/thumbnail.png" alt="thumbnail">
-        <img src="/assets/img/thumbnail.png" alt="thumbnail">
-        <img src="/assets/img/thumbnail.png" alt="thumbnail">
-        <img src="/assets/img/thumbnail.png" alt="thumbnail">
+        <img *ngFor="let video of dataService.dummyVideos | async" [src]="video.thumbnail" alt="thumbnail" (click)="selectVideo(video)">
     </div>
 
     <span class="subtitle">Popular</span>
