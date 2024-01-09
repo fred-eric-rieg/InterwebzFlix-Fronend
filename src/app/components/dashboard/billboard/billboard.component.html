@@ -1,4 +1,4 @@
-<div class="billboard" *ngIf="dataService.selectedVideo.value">
+<div class="billboard" *ngIf="dataService.selectedVideo.value" [style.background-image]="'url(' + dataService.selectedVideo.value.thumbnail + ')'">
     <div class="billboard-content">
         <span class="billboard-title">{{ dataService.selectedVideo.value.title }}</span>
         <div class="billboard-info">

@@ -6,9 +6,10 @@
     height: 50vh;
     background-image:
         linear-gradient(to bottom, black, rgba(0, 0, 0, 0) 100px),
-        linear-gradient(to top, black, rgba(0, 0, 0, 0) 100px),
-        url('/assets/img/bg.png');
-    background-size: contain;
+        linear-gradient(to top, black, rgba(0, 0, 0, 0) 100px);
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }
 
 .billboard-content {
