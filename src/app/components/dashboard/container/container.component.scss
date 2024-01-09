@@ -1,0 +1,31 @@
+.container {
+    position: relative;
+    top: 80px;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.row {
+    display: flex;
+    background-color: var(--bg-dark);
+    width: 100%;
+    height: 200px;
+    padding: 20px;
+    overflow-x: scroll;
+    
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    scrollbar-width: none;
+}
+
+@media screen and (width > 768px) {
+    .subtitle {
+        font-size: 2rem;
+    }
+    
+}
