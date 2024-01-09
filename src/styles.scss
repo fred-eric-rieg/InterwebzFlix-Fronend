@@ -3,10 +3,12 @@
     --bg-dark: #000000;
     --bg-dark-1: #222;
     --bg-dark-2: #333;
+    --bg-light: #fff;
     --dark-color: #fff;
     --dark-primary: #e50914;
-    --dark-secondary: #666;
-    --dark-tertiary: #999;
+    --dark-primary-hover: #aa060f;
+    --dark-secondary: #333;
+    --dark-tertiary: #222;
     --dark-warn: #f44336;
     --dark-accent: #ff9800;
 }
@@ -21,13 +23,8 @@
 html  body {
     margin: 0;
     font-family:'nohemi', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
-}
-
-.dark {
     background-color: var(--bg-dark);
-}
+    color: var(--dark-color);
 
-.light {
-    background-color: var(--bg-light);
+    overflow: hidden;
 }
