@@ -123,4 +123,11 @@ export class AuthService {
     };
     return lastValueFrom(this.http.get<any>(url, { headers }));
   }
+
+
+  logout() {
+    this.setCsrfToken('');
+    this.setAccessToken('');
+    this.setRefreshToken('');
+  }
 }
