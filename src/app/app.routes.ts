@@ -5,6 +5,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MainComponent } from './components/dashboard/main/main.component';
 import { InfoComponent } from './components/dashboard/info/info.component';
+import { VideoComponent } from './components/dashboard/video/video.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landingpage', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
         { path: '', redirectTo: 'main', pathMatch: 'full' },
         { path: 'main', component: MainComponent },
         { path: 'info', component: InfoComponent },
+        { path: 'video', component: VideoComponent }
     ]},
     { path: '**', redirectTo: 'landingpage' }
 ];
