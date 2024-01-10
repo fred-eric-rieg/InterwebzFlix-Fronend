@@ -76,7 +76,8 @@ export class AuthService {
     const body = {
       token: this.getAccessToken()
     };
-    return lastValueFrom(this.http.post<any>(url, body, { withCredentials: true }));
+    let response = await lastValueFrom(this.http.post<any>(url, body, { withCredentials: true }));
+    return response;
   }
 
 

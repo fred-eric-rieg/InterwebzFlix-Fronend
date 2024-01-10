@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { AuthService } from './auth.service';
 
 // Language 1 = English, 2 = Deutsch, 3 = Türkçe
 
@@ -25,7 +28,6 @@ interface movies {
   release_date: Date,
   created_at: Date,
   updated_at: Date,
-  tags: string[]
 }
 
 
@@ -34,11 +36,14 @@ interface movies {
 })
 export class DataService {
 
+  environment = environment;
+
   dummyVideos = new BehaviorSubject<movies[]>([]);
   selectedVideo = new BehaviorSubject<movies | null>(null);
 
-  constructor() {
+  constructor(private http: HttpClient, private authService: AuthService) {
     console.log('data service constucted');
+    /**
     this.dummyVideos.next([
       {
         title: "Dummy Video",
@@ -62,7 +67,6 @@ export class DataService {
         release_date: new Date(),
         created_at: new Date(),
         updated_at: new Date(),
-        tags: []
       },
       {
         title: "Dummy Video 2",
@@ -110,12 +114,23 @@ export class DataService {
         release_date: new Date(),
         created_at: new Date(),
         updated_at: new Date(),
-        tags: []
       }
     ]);
     console.log(this.dummyVideos.value);
-    this.selectedVideo.next(this.dummyVideos.value[0]);
+     */
+    this.getVideos().then((data) => {
+      this.dummyVideos.next(data.results);
+    });
+    
   }
 
+
+  async getVideos() {
+    const url = environment.baseUrl + 'videos/';
+    const headers = {
+        Authorization: 'Bearer ' + this.authService.getAccessToken()
+    };
+    return lastValueFrom(this.http.get<any>(url, { headers }));
+  }
 
 }

@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MainComponent } from './components/dashboard/main/main.component';
 import { InfoComponent } from './components/dashboard/info/info.component';
 import { VideoComponent } from './components/dashboard/video/video.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landingpage', pathMatch: 'full' },
@@ -15,9 +16,9 @@ export const routes: Routes = [
 
     { path: 'dashboard', component: DashboardComponent, children: [
         { path: '', redirectTo: 'main', pathMatch: 'full' },
-        { path: 'main', component: MainComponent },
-        { path: 'info', component: InfoComponent },
-        { path: 'video', component: VideoComponent }
-    ]},
+        { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
+        { path: 'info', component: InfoComponent, canActivate: [AuthGuard] },
+        { path: 'video', component: VideoComponent, canActivate: [AuthGuard] }
+    ], canActivate: [AuthGuard]},
     { path: '**', redirectTo: 'landingpage' }
 ];

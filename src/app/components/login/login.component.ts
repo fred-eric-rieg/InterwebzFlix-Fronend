@@ -65,7 +65,7 @@ export class LoginComponent {
       } else {
         this.auth.setAccessToken(response.access);
         this.auth.setRefreshToken(response.refresh);
-        this.router.navigate(['/main']);
+        this.router.navigate(['dashboard/main']);
       }
     }
     catch (error) {
