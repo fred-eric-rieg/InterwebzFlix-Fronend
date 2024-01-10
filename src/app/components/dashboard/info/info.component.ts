@@ -20,7 +20,7 @@ export class InfoComponent {
 
 
   playMovie() {
-    console.log('playMovie');
+    this.router.navigate(['/dashboard/video']);
   }
 
 

@@ -83,7 +83,7 @@
                     <img src="/assets/img/full_star.svg" alt="full star rating">
                     <img src="/assets/img/full_star.svg" alt="full star rating">
                 </div>
-                <span>{{ dataService.selectedVideo.value.views }} Reviews</span>
+                <span>{{ dataService.selectedVideo.value.reviews }} Reviews</span>
             </div>
 
             <div class="row"><span class="billboard-year">Year</span><span>{{
@@ -93,11 +93,11 @@
 
         </div>
         <div class="billboard-buttons">
-            <button primaryButton>Play</button>
+            <button primaryButton (click)="playMovie()">Play</button>
             <button secondaryButton (click)="goToInfo()">More Info</button>
         </div>
         <div class="billboard-description">
-            {{ dataService.selectedVideo.value.description }}
+            {{ dataService.selectedVideo.value.description_short }}
         </div>
     </div>
 

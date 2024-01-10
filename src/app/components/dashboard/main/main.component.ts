@@ -23,8 +23,12 @@ export class MainComponent {
   }
 
 
+  playMovie() {
+    this.router.navigate(['/dashboard/video']);
+  }
+
+
   goToInfo() {
-    console.log('goToInfo');
     this.router.navigate(['/dashboard/info']);
   }
 }

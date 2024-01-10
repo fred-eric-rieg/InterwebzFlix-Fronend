@@ -1,12 +1,16 @@
 <div class="info">
-    <div class="bg-image" [style.background-image]="'linear-gradient(to bottom, black, rgba(0, 0, 0, 0) 100px), linear-gradient(to top, black, rgba(0, 0, 0, 0) 100px), url(' + dataService.selectedVideo.value?.thumbnail + ')'">
+    <div class="bg-image"
+        [style.background-image]="'linear-gradient(to bottom, black, rgba(0, 0, 0, 0) 100px), linear-gradient(to top, black, rgba(0, 0, 0, 0) 100px), url(' + dataService.selectedVideo.value?.thumbnail + ')'">
 
     </div>
-    
+
 
     <div class="info-box" *ngIf="dataService.selectedVideo.value">
-        <button secondaryButton (click)="goToMain()">Back</button>
-        <button primaryButton (click)="playMovie()">Play</button>
+        <div class="row">
+            <button secondaryButton (click)="goToMain()">Back</button>
+            <button primaryButton (click)="playMovie()">Play</button>
+        </div>
+
 
         <span class="title">{{ dataService.selectedVideo.value.title }}</span>
 
@@ -91,7 +95,7 @@
                 <img src="/assets/img/full_star.svg" alt="full star rating">
                 <img src="/assets/img/full_star.svg" alt="full star rating">
             </div>
-            <span>{{ dataService.selectedVideo.value.views }} Reviews</span>
+            <span>{{ dataService.selectedVideo.value.reviews }} Reviews</span>
         </div>
 
         <div class="row extra-gap">
@@ -99,8 +103,8 @@
             <span>{{ dataService.selectedVideo.value.sound_quality }}</span>
             <span>Language: {{ dataService.selectedVideo.value.language }}</span>
             <span>Subtitles:</span>
-            <span *ngIf="dataService.selectedVideo.value.subtitles">Yes</span>
-            
+            <span *ngFor="let sub of dataService.selectedVideo.value.subtitles">{{ sub }}</span>
+
         </div>
 
         <div class="row extra-gap">
@@ -115,8 +119,6 @@
             <span>Actors:</span> <span *ngFor="let actor of dataService.selectedVideo.value.actors">{{ actor }}</span>
         </div>
 
-        <span class="description">{{ dataService.selectedVideo.value.description }}</span>
+        <span class="description">{{ dataService.selectedVideo.value.description_long }}</span>
     </div>
 </div>
-
-
