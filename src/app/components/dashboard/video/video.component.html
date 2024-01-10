@@ -1,0 +1,6 @@
+<div class="video-container">
+    <button secondaryButton (click)="goBack()">Back</button>
+    <div class="placeholder" *ngIf="!dataService.selectedVideo.value">
+    </div>
+    <video *ngIf="dataService.selectedVideo.value" [src]="dataService.selectedVideo.value.video" controls></video>
+</div>
