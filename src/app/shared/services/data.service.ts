@@ -45,13 +45,23 @@ export class DataService {
   public videos$ = this.videoPool.asObservable();
 
   private selectedVideo = new BehaviorSubject<movies | null>(null);
-  // Expose the selectedVideo$ as Observable (read only stream)
-  // which subscribes to updates that occur in the selectedVideo BehaviourSubject
   public selectedVideo$ = this.selectedVideo.asObservable();
+
+  private user = new BehaviorSubject<any | null>(null);
+  public user$ = this.user.asObservable();
+
+  private genres = new BehaviorSubject<any | null>(null);
+  public genres$ = this.genres.asObservable();
+
+  private actors = new BehaviorSubject<any | null>(null);
+  public actors$ = this.actors.asObservable();
+
 
   constructor(private http: HttpClient, private authService: AuthService) {
     console.log('data service constucted');
     this.getVideos();
+    this.getGenres();
+    this.getActors();
   }
 
   /**
@@ -95,7 +105,8 @@ export class DataService {
     const headers = {
       Authorization: 'Bearer ' + this.authService.getAccessToken()
     };
-    return lastValueFrom(this.http.get<any>(url, { headers }));
+    const user = await lastValueFrom(this.http.get<any>(url, { headers }));
+    this.user.next(user);
   }
 
 
@@ -104,7 +115,8 @@ export class DataService {
     const headers = {
       Authorization: 'Bearer ' + this.authService.getAccessToken()
     };
-    return lastValueFrom(this.http.get<any>(url, { headers }));
+    const genres = await lastValueFrom(this.http.get<any>(url, { headers }));
+    this.genres.next(genres);
   }
 
 
@@ -113,7 +125,8 @@ export class DataService {
     const headers = {
       Authorization: 'Bearer ' + this.authService.getAccessToken()
     };
-    return lastValueFrom(this.http.get<any>(url, { headers }));
+    const actors = await lastValueFrom(this.http.get<any>(url, { headers }));
+    this.actors.next(actors);
   }
 
 

@@ -4,14 +4,17 @@ import { ButtonSecondaryDirective } from '../../../shared/directives/button-seco
 import { DataService } from '../../../shared/services/data.service';
 import { CommonModule } from '@angular/common';
 import { ButtonPrimaryDirective } from '../../../shared/directives/button-primary.directive';
+import { GenrePipe } from "../../../shared/pipes/genre.pipe";
+import { ActorPipe } from "../../../shared/pipes/actor.pipe";
+import { LanguagePipe } from '../../../shared/pipes/language.pipe';
 
 
 @Component({
-  selector: 'app-info',
-  standalone: true,
-  imports: [ButtonSecondaryDirective, ButtonPrimaryDirective, CommonModule],
-  templateUrl: './info.component.html',
-  styleUrl: './info.component.scss'
+    selector: 'app-info',
+    standalone: true,
+    templateUrl: './info.component.html',
+    styleUrl: './info.component.scss',
+    imports: [ButtonSecondaryDirective, ButtonPrimaryDirective, CommonModule, GenrePipe, ActorPipe, LanguagePipe]
 })
 export class InfoComponent {
 

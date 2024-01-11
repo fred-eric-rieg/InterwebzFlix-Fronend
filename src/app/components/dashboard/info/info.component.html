@@ -67,15 +67,17 @@
             </div>
 
 
-            <span>{{ video.reviews }} Reviews</span>
+            <span *ngIf="video.reviews > 1">{{ video.reviews }} Reviews</span>
+            <span *ngIf="video.reviews <= 1">{{ video.reviews }} Review</span>
         </div>
 
         <div class="row extra-gap">
-            <span>{{ video.video_quality }}</span>
-            <span>{{ video.sound_quality }}</span>
-            <span>Language: {{ video.language }}</span>
+            <span>{{ video.video_quality || 'HD' }}</span>
+            <span>{{ video.sound_quality || '2.1 Stereo'}}</span>
+            <span>Language: {{ video.language | language }}</span>
             <span>Subtitles:</span>
-            <span *ngFor="let sub of video.subtitles">{{ sub }}</span>
+            <span *ngFor="let sub of video.subtitles | language">{{ sub }}</span>
+            <span *ngIf="video.subtitles.length == 0">None</span>
 
         </div>
 
@@ -87,8 +89,8 @@
         </div>
 
         <div class="row extra-gap">
-            <span>Genres:</span> <span *ngFor="let genre of video.genres">{{ genre }}</span>
-            <span>Actors:</span> <span *ngFor="let actor of video.actors">{{ actor }}</span>
+            <span>Genres:</span> <span *ngFor="let genre of video.genres | genre">{{ genre }}</span>
+            <span>Actors:</span> <span *ngFor="let actor of video.actors | actor">{{ actor }}</span>
         </div>
 
         <span class="description">{{ video.description_long }}</span>
