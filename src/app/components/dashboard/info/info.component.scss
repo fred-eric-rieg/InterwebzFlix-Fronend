@@ -70,9 +70,19 @@
     }
 }
 
+.description {
+    font-size: 1rem;
+    transition: all 225ms ease-in-out;
+}
+
 @media screen and (width > 768px) {
     .title {
         font-size: 2rem;
+        transition: all 225ms ease-in-out;
+    }
+
+    .description {
+        font-size: 1.5rem;
         transition: all 225ms ease-in-out;
     }
 

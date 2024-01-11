@@ -1,29 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ButtonPrimaryDirective } from '../../../shared/directives/button-primary.directive';
-import { ButtonSecondaryDirective } from '../../../shared/directives/button-secondary.directive';
-import { Router } from '@angular/router';
-import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ButtonPrimaryDirective, ButtonSecondaryDirective],
+  imports: [ButtonPrimaryDirective],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
 
-  constructor(private router: Router, private authService: AuthService) { }
+  isMenuOpen: boolean = false;
+
+  @Output() menuToggle = new EventEmitter<boolean>();
+
+  constructor() { }
 
 
-  goToProfile() {
-    this.router.navigate(['/dashboard/profile']);
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+    this.menuToggle.emit(this.isMenuOpen);
+    console.log("Menu opened.");
   }
 
-
-  logout() {
-    this.authService.logout();
-    console.log('%cTokens deleted - logout successful.', 'color: yellow');
-    this.router.navigate(['login']);
-  }
+  
 }
