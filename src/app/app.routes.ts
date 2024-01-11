@@ -7,6 +7,7 @@ import { MainComponent } from './components/dashboard/main/main.component';
 import { InfoComponent } from './components/dashboard/info/info.component';
 import { VideoComponent } from './components/dashboard/video/video.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ProfileComponent } from './components/dashboard/profile/profile.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landingpage', pathMatch: 'full' },
@@ -18,7 +19,8 @@ export const routes: Routes = [
         { path: '', redirectTo: 'main', pathMatch: 'full' },
         { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
         { path: 'info', component: InfoComponent, canActivate: [AuthGuard] },
-        { path: 'video', component: VideoComponent, canActivate: [AuthGuard] }
+        { path: 'video', component: VideoComponent, canActivate: [AuthGuard] },
+        { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
     ], canActivate: [AuthGuard]},
     { path: '**', redirectTo: 'landingpage' }
 ];

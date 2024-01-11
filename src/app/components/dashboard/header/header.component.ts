@@ -16,6 +16,11 @@ export class HeaderComponent {
   constructor(private router: Router, private authService: AuthService) { }
 
 
+  goToProfile() {
+    this.router.navigate(['/dashboard/profile']);
+  }
+
+
   logout() {
     this.authService.logout();
     console.log('%cTokens deleted - logout successful.', 'color: yellow');

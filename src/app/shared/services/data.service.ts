@@ -62,6 +62,7 @@ export class DataService {
     this.getVideos();
     this.getGenres();
     this.getActors();
+    this.getUser();
   }
 
   /**
@@ -107,6 +108,7 @@ export class DataService {
     };
     const user = await lastValueFrom(this.http.get<any>(url, { headers }));
     this.user.next(user);
+    console.log('user', user);
   }
 
 

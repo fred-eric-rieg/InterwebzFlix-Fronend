@@ -1,0 +1,19 @@
+<div class="profile-container">
+
+    <div class="wrapper" *ngIf="dataService.user$ | async as user">
+        <button secondaryButton (click)="goToMain()">Back</button>
+        <h1>Welcome, {{ user.display_name || 'unnamed wanderer...' }}</h1>
+        <h2 *ngIf="user.display_name == ''">What is your name?</h2>
+
+        <div><span>Email: </span><span>{{ user.email }}</span></div>
+        <div><span>First name: </span><span>{{ user.first_name }}</span></div>
+        <div><span>Last name: </span><span>{{ user.last_name }}</span></div>
+        <div><span>Display name: </span><span>{{ user.display_name }}</span></div>
+        <div><span>Birthday: </span><span>{{ user.date_of_birth | date: 'dd.MM.yyyy' }}</span></div>
+    </div>
+    
+
+   
+
+
+</div>
