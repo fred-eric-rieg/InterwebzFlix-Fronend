@@ -1,25 +1,25 @@
 <div class="container">
     <span class="subtitle">My List</span>
-
     <div class="row">
-        <img *ngFor="let video of dataService.videos$ | async" [src]="video.thumbnail" alt="thumbnail" (click)="selectVideo(video)">
+        <img *ngFor="let video of dataService.videos$ | async" [src]="video.thumbnail" alt="thumbnail"
+            (click)="selectVideo(video)">
     </div>
 
-    <span class="subtitle">Popular</span>
-
+    <span class="subtitle">New arrivals</span>
     <div class="row">
-
+        <img *ngFor="let video of dataService.videos$ | async | filter: 'new'" [src]="video.thumbnail" alt="thumbnail"
+        (click)="selectVideo(video)">
     </div>
 
-    <span class="subtitle">Documentary</span>
-
+    <span class="subtitle">Tutorials</span>
     <div class="row">
-
+        <img *ngFor="let video of dataService.videos$ | async | filter: 'tutorial'" [src]="video.thumbnail" alt="thumbnail"
+        (click)="selectVideo(video)">
     </div>
 
-    <span class="subtitle">Private</span>
-
+    <span class="subtitle">Short Films</span>
     <div class="row">
-
+        <img *ngFor="let video of dataService.videos$ | async | filter: 'short'" [src]="video.thumbnail" alt="thumbnail"
+        (click)="selectVideo(video)">
     </div>
 </div>
