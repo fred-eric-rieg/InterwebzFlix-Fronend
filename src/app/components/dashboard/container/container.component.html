@@ -1,7 +1,7 @@
 <div class="container">
     <span class="subtitle">My List</span>
     <div class="row">
-        <img *ngFor="let video of dataService.videos$ | async" [src]="video.thumbnail" alt="thumbnail"
+        <img *ngFor="let video of dataService.videos$ | async | watchlist" [src]="video.thumbnail" alt="thumbnail"
             (click)="selectVideo(video)">
     </div>
 

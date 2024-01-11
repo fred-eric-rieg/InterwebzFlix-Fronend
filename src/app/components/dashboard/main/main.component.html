@@ -31,6 +31,8 @@
         <div class="billboard-buttons">
             <button primaryButton (click)="playMovie()">Play</button>
             <button secondaryButton (click)="goToInfo()">More Info</button>
+            <button class="hide-mobile" *ngIf="!watchlist.includes(video.id)" secondaryButton (click)="addVideoToList(video.id)">+ Add List</button>
+            <button class="hide-mobile" *ngIf="watchlist.includes(video.id)" secondaryButton (click)="removeVideoFromList(video.id)">Remove from List</button>
         </div>
         <div class="billboard-description">
             {{ video.description_short }}

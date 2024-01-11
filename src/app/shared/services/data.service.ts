@@ -56,13 +56,17 @@ export class DataService {
   private actors = new BehaviorSubject<any | null>(null);
   public actors$ = this.actors.asObservable();
 
+  private watchlist = new BehaviorSubject<any | null>(null);
+  public watchlist$ = this.watchlist.asObservable();
+
 
   constructor(private http: HttpClient, private authService: AuthService) {
     console.log('data service constucted');
+    this.getUser();
+    this.getWatchlist();
     this.getVideos();
     this.getGenres();
     this.getActors();
-    this.getUser();
   }
 
   /**
@@ -149,4 +153,36 @@ export class DataService {
     this.selectedVideo.next(video);
   }
 
+
+  async getWatchlist() {
+    const url = environment.baseUrl + 'watchlist/';
+    const headers = {
+      Authorization: 'Bearer ' + this.authService.getAccessToken()
+    };
+    const watchlist = await lastValueFrom(this.http.get<any>(url, { headers }));
+    this.watchlist.next(watchlist);
+    console.log('watchlist', watchlist);
+  }
+
+
+  async addToWatchlist(videoId: number) {
+    const url = environment.baseUrl + 'add-to-watchlist/' + videoId + '/';
+    const headers = {
+      Authorization: 'Bearer ' + this.authService.getAccessToken()
+    };
+    await lastValueFrom(this.http.post<any>(url, {}, { headers }));
+    console.log('added to watchlist');
+    this.getWatchlist();
+  }
+
+
+  async removeFromWatchlist(videoId: number) {
+    const url = environment.baseUrl + 'remove-from-watchlist/' + videoId + '/';
+    const headers = {
+      Authorization: 'Bearer ' + this.authService.getAccessToken()
+    };
+    await lastValueFrom(this.http.post<any>(url, {}, { headers }));
+    console.log('removed from watchlist');
+    this.getWatchlist();
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonSecondaryDirective } from '../../../shared/directives/button-secondary.directive';
 import { DataService } from '../../../shared/services/data.service';
@@ -7,7 +7,32 @@ import { ButtonPrimaryDirective } from '../../../shared/directives/button-primar
 import { GenrePipe } from "../../../shared/pipes/genre.pipe";
 import { ActorPipe } from "../../../shared/pipes/actor.pipe";
 import { LanguagePipe } from '../../../shared/pipes/language.pipe';
+import { Subscription } from 'rxjs';
 
+interface movies {
+  id: number,
+  title: string,
+  description_short: string,
+  description_long: string,
+  thumbnail: string,
+  video: string,
+  user_rating: number,
+  reviews: number,
+  video_quality: string,
+  sound_quality: string,
+  genres: number[],
+  actors: number[],
+  duration: number,
+  season_number: number,
+  episode_number: number,
+  country_of_origin: number,
+  age_rating: string,
+  subtitles: number[],
+  language: number,
+  release_date: Date,
+  created_at: Date,
+  updated_at: Date,
+}
 
 @Component({
     selector: 'app-info',
@@ -16,7 +41,9 @@ import { LanguagePipe } from '../../../shared/pipes/language.pipe';
     styleUrl: './info.component.scss',
     imports: [ButtonSecondaryDirective, ButtonPrimaryDirective, CommonModule, GenrePipe, ActorPipe, LanguagePipe]
 })
-export class InfoComponent {
+export class InfoComponent implements OnDestroy {
+  watchlistSub: Subscription;
+  watchlist: number[] = [];
 
   isRating: boolean = false;
 
@@ -34,6 +61,15 @@ export class InfoComponent {
     this.threestar = new ElementRef('');
     this.fourstar = new ElementRef('');
     this.fivestar = new ElementRef('');
+
+    this.watchlistSub = this.dataService.watchlist$.subscribe((watchlist) => {
+      this.watchlist = watchlist.map((video: movies) => video.id);
+    });
+  }
+
+
+  ngOnDestroy() {
+    this.watchlistSub.unsubscribe();
   }
 
 
@@ -68,6 +104,16 @@ export class InfoComponent {
     } catch (error) {
       console.log(error);
     } 
+  }
+
+
+  addVideoToList(id: number) {
+    this.dataService.addToWatchlist(id);
+  }
+
+
+  removeVideoFromList(id: number) {
+    this.dataService.removeFromWatchlist(id);
   }
 
 }

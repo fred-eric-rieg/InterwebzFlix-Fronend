@@ -52,6 +52,10 @@
     gap: 0.5rem;
 }
 
+.hide-mobile {
+    display: none;
+}
+
 @media screen and (width > 768px) {
     .billboard-content {
         width: 400px;
@@ -68,6 +72,10 @@
     .billboard-description {
         font-size: 1.2rem;
         transition: all 225ms ease-in-out;
+    }
+
+    .hide-mobile {
+        display: block;
     }
 }
 

@@ -10,6 +10,8 @@
         <div class="row">
             <button secondaryButton (click)="goToMain()">Back</button>
             <button primaryButton (click)="playMovie()">Play</button>
+            <button *ngIf="!watchlist.includes(video.id)" secondaryButton (click)="addVideoToList(video.id)">+ Add List</button>
+            <button *ngIf="watchlist.includes(video.id)" secondaryButton (click)="removeVideoFromList(video.id)">Remove from List</button>
         </div>
 
 
