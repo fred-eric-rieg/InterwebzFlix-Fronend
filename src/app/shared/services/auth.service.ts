@@ -103,27 +103,6 @@ export class AuthService {
     return lastValueFrom(this.http.post<any>(url, body));
   }
 
-  /**
-   * Makes a get request to the backend to get the user object.
-   * @returns the user object from the backend.
-   */
-  async getUser() {
-    const url = environment.baseUrl + 'user/';
-    const headers = {
-      Authorization: 'Bearer ' + this.getAccessToken()
-    };
-    return lastValueFrom(this.http.get<any>(url, { headers }));
-  }
-
-
-  async getMovie() {
-    const url = environment.baseUrl + 'videos/';
-    const headers = {
-      Authorization: 'Bearer ' + this.getAccessToken()
-    };
-    return lastValueFrom(this.http.get<any>(url, { headers }));
-  }
-
 
   logout() {
     this.setCsrfToken('');

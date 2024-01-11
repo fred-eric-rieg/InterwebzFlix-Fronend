@@ -1,124 +1,97 @@
-<div class="info">
+<div class="info" *ngIf="dataService.selectedVideo$ | async as video">
+
     <div class="bg-image"
-        [style.background-image]="'linear-gradient(to bottom, black, rgba(0, 0, 0, 0) 100px), linear-gradient(to top, black, rgba(0, 0, 0, 0) 100px), url(' + dataService.selectedVideo.value?.thumbnail + ')'">
+        [style.background-image]="'linear-gradient(to bottom, black, rgba(0, 0, 0, 0) 100px), linear-gradient(to top, black, rgba(0, 0, 0, 0) 100px), url(' + video.thumbnail + ')'">
 
     </div>
 
+    <div class="info-box" >
 
-    <div class="info-box" *ngIf="dataService.selectedVideo.value">
         <div class="row">
             <button secondaryButton (click)="goToMain()">Back</button>
             <button primaryButton (click)="playMovie()">Play</button>
         </div>
 
 
-        <span class="title">{{ dataService.selectedVideo.value.title }}</span>
+        <span class="title">{{ video.title }}</span>
 
         <div class="row">
             <span>Rating</span>
-            <div *ngIf="dataService.selectedVideo.value.user_rating < 1.3">
-                <!-- 1 Star -->
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
+
+            <div>
+                <div class="star" *ngIf="!isRating" (mouseenter)="toggleRating($event)">
+                    <img src="/assets/img/full_star.svg" alt="full star rating">
+                    <img src="/assets/img/full_star.svg" alt="full star rating" *ngIf="video.user_rating > 1.7">
+                    <img src="/assets/img/half_star.svg" alt="half star rating"
+                        *ngIf="video.user_rating >= 1.3 && video.user_rating < 1.7">
+                    <img src="/assets/img/empty_star.svg" alt="empty star rating" *ngIf="video.user_rating < 1.3">
+                    <img src="/assets/img/full_star.svg" alt="full star rating" *ngIf="video.user_rating > 2.7">
+                    <img src="/assets/img/half_star.svg" alt="half star rating"
+                        *ngIf="video.user_rating >= 2.3 && video.user_rating < 2.7">
+                    <img src="/assets/img/empty_star.svg" alt="empty star rating" *ngIf="video.user_rating < 2.3">
+                    <img src="/assets/img/full_star.svg" alt="full star rating" *ngIf="video.user_rating > 3.7">
+                    <img src="/assets/img/half_star.svg" alt="half star rating"
+                        *ngIf="video.user_rating >= 3.3 && video.user_rating < 3.7">
+                    <img src="/assets/img/empty_star.svg" alt="empty star rating" *ngIf="video.user_rating < 3.3">
+                    <img src="/assets/img/full_star.svg" alt="full star rating" *ngIf="video.user_rating > 4.7">
+                    <img src="/assets/img/half_star.svg" alt="half star rating"
+                        *ngIf="video.user_rating >= 4.3 && video.user_rating < 4.7">
+                    <img src="/assets/img/empty_star.svg" alt="empty star rating" *ngIf="video.user_rating < 4.3">
+                </div>
+
+                <div class="star" *ngIf="isRating" (mouseleave)="toggleRating($event)">
+                    <img src="/assets/img/full_star.svg" #onestar alt="full star rating"
+                        (mouseenter)="rateMovie($event, 1)" (click)="sendRating($event)">
+
+                    <img src="/assets/img/full_star.svg" #twostar alt="full star rating"
+                        (mouseenter)="rateMovie($event, 2)" *ngIf="rating >= 2" (click)="sendRating($event)">
+                    <img src="/assets/img/empty_star.svg" #onestar alt="empty star rating"
+                        (mouseenter)="rateMovie($event, 2)" *ngIf="rating < 2">
+
+                    <img src="/assets/img/full_star.svg" #threestar alt="full star rating"
+                        (mouseenter)="rateMovie($event, 3)" *ngIf="rating >= 3" (click)="sendRating($event)">
+                    <img src="/assets/img/empty_star.svg" #onestar alt="empty star rating"
+                        (mouseenter)="rateMovie($event, 3)" *ngIf="rating < 3">
+
+                    <img src="/assets/img/full_star.svg" #fourstar alt="full star rating"
+                        (mouseenter)="rateMovie($event, 4)" *ngIf="rating >= 4" (click)="sendRating($event)">
+                    <img src="/assets/img/empty_star.svg" #onestar alt="empty star rating"
+                        (mouseenter)="rateMovie($event, 4)" *ngIf="rating < 4">
+
+                    <img src="/assets/img/full_star.svg" #fivestar alt="full star rating"
+                        (mouseenter)="rateMovie($event, 5)" *ngIf="rating >= 5" (click)="sendRating($event)">
+                    <img src="/assets/img/empty_star.svg" #onestar alt="empty star rating"
+                        (mouseenter)="rateMovie($event, 5)" *ngIf="rating < 5">
+                </div>
+
             </div>
-            <div
-                *ngIf="dataService.selectedVideo.value.user_rating >= 1.3 && dataService.selectedVideo.value.user_rating < 1.7">
-                <!-- 1.5 Stars -->
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/half_star.svg" alt="half star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-            </div>
-            <div
-                *ngIf="dataService.selectedVideo.value.user_rating >= 1.7 && dataService.selectedVideo.value.user_rating < 2.3">
-                <!-- 2 Stars -->
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-            </div>
-            <div
-                *ngIf="dataService.selectedVideo.value.user_rating >= 2.3 && dataService.selectedVideo.value.user_rating < 2.7">
-                <!-- 2.5 Stars -->
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/half_star.svg" alt="half star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-            </div>
-            <div
-                *ngIf="dataService.selectedVideo.value.user_rating >= 2.7 && dataService.selectedVideo.value.user_rating < 3.3">
-                <!-- 3 Stars -->
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-            </div>
-            <div
-                *ngIf="dataService.selectedVideo.value.user_rating >= 3.3 && dataService.selectedVideo.value.user_rating < 3.7">
-                <!-- 3.5 Stars -->
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/half_star.svg" alt="half star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-            </div>
-            <div
-                *ngIf="dataService.selectedVideo.value.user_rating >= 3.7 && dataService.selectedVideo.value.user_rating < 4.3">
-                <!-- 4 Stars -->
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/empty_star.svg" alt="empty star rating">
-            </div>
-            <div
-                *ngIf="dataService.selectedVideo.value.user_rating >= 4.3 && dataService.selectedVideo.value.user_rating < 4.7">
-                <!-- 4.5 Stars -->
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/half_star.svg" alt="half star rating">
-            </div>
-            <div *ngIf="dataService.selectedVideo.value.user_rating >= 4.7">
-                <!-- 5 Stars -->
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-                <img src="/assets/img/full_star.svg" alt="full star rating">
-            </div>
-            <span>{{ dataService.selectedVideo.value.reviews }} Reviews</span>
+
+
+            <span>{{ video.reviews }} Reviews</span>
         </div>
 
         <div class="row extra-gap">
-            <span>{{ dataService.selectedVideo.value.video_quality }}</span>
-            <span>{{ dataService.selectedVideo.value.sound_quality }}</span>
-            <span>Language: {{ dataService.selectedVideo.value.language }}</span>
+            <span>{{ video.video_quality }}</span>
+            <span>{{ video.sound_quality }}</span>
+            <span>Language: {{ video.language }}</span>
             <span>Subtitles:</span>
-            <span *ngFor="let sub of dataService.selectedVideo.value.subtitles">{{ sub }}</span>
+            <span *ngFor="let sub of video.subtitles">{{ sub }}</span>
 
         </div>
 
         <div class="row extra-gap">
-            <span>Country: {{ dataService.selectedVideo.value.country_of_origin }}</span>
-            <span>Year: {{ dataService.selectedVideo.value.release_date | date: 'yyyy' }}</span>
-            <span>Length: {{ dataService.selectedVideo.value.duration }} mins</span>
-            <span>Rated: {{ dataService.selectedVideo.value.age_rating }}</span>
+            <span>Country: {{ video.country_of_origin }}</span>
+            <span>Year: {{ video.release_date | date: 'yyyy' }}</span>
+            <span>Length: {{ video.duration }} mins</span>
+            <span>Rated: {{ video.age_rating }}</span>
         </div>
 
         <div class="row extra-gap">
-            <span>Genres:</span> <span *ngFor="let genre of dataService.selectedVideo.value.genres">{{ genre }}</span>
-            <span>Actors:</span> <span *ngFor="let actor of dataService.selectedVideo.value.actors">{{ actor }}</span>
+            <span>Genres:</span> <span *ngFor="let genre of video.genres">{{ genre }}</span>
+            <span>Actors:</span> <span *ngFor="let actor of video.actors">{{ actor }}</span>
         </div>
 
-        <span class="description">{{ dataService.selectedVideo.value.description_long }}</span>
+        <span class="description">{{ video.description_long }}</span>
     </div>
+
 </div>

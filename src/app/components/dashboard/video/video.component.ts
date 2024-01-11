@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { DataService } from '../../../shared/services/data.service';
 import { CommonModule, Location } from '@angular/common';
 import { ButtonSecondaryDirective } from '../../../shared/directives/button-secondary.directive';
@@ -13,10 +13,7 @@ import { ButtonSecondaryDirective } from '../../../shared/directives/button-seco
 export class VideoComponent {
 
 
-
-  constructor(public dataService: DataService, private _location: Location) {
-    
-  }
+  constructor(public dataService: DataService, private _location: Location) { }
 
 
   goBack() {

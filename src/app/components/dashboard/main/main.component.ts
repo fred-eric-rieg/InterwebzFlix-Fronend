@@ -6,6 +6,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { DataService } from '../../../shared/services/data.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-main',
   standalone: true,
@@ -15,12 +16,8 @@ import { Router } from '@angular/router';
 })
 export class MainComponent {
 
+
   constructor(public dataService: DataService, private router: Router) { }
-
-
-  ngOnInit() {
-    console.log('ngOnInit');
-  }
 
 
   playMovie() {

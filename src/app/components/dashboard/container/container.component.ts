@@ -15,6 +15,6 @@ export class ContainerComponent {
 
 
   selectVideo(video: any) {
-    this.dataService.selectedVideo.next(video)
+    this.dataService.setSelectedVideo(video);
   }
 }

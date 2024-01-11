@@ -2,7 +2,7 @@
     <span class="subtitle">My List</span>
 
     <div class="row">
-        <img *ngFor="let video of dataService.dummyVideos | async" [src]="video.thumbnail" alt="thumbnail" (click)="selectVideo(video)">
+        <img *ngFor="let video of dataService.videos$ | async" [src]="video.thumbnail" alt="thumbnail" (click)="selectVideo(video)">
     </div>
 
     <span class="subtitle">Popular</span>

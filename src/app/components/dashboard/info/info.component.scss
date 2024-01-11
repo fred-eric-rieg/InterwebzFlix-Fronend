@@ -57,10 +57,23 @@
     gap: 1rem;
 }
 
+.star {
+    cursor: pointer;
+
+    img {
+        transition: all 225ms ease-in-out;
+
+        &:hover {
+            transform: scale(1.1);
+            transition: all 225ms ease-in-out;
+        }
+    }
+}
+
 @media screen and (width > 768px) {
     .title {
         font-size: 2rem;
         transition: all 225ms ease-in-out;
     }
-    
+
 }

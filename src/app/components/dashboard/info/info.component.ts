@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonSecondaryDirective } from '../../../shared/directives/button-secondary.directive';
 import { DataService } from '../../../shared/services/data.service';
@@ -15,7 +15,22 @@ import { ButtonPrimaryDirective } from '../../../shared/directives/button-primar
 })
 export class InfoComponent {
 
+  isRating: boolean = false;
+
+  rating: number = 1;
+
+  @ViewChild('onestar') onestar!: ElementRef;
+  @ViewChild('twostar') twostar!: ElementRef;
+  @ViewChild('threestar') threestar!: ElementRef;
+  @ViewChild('fourstar') fourstar!: ElementRef;
+  @ViewChild('fivestar') fivestar!: ElementRef;
+
   constructor(private router: Router, public dataService: DataService) {
+    this.onestar = new ElementRef('');
+    this.twostar = new ElementRef('');
+    this.threestar = new ElementRef('');
+    this.fourstar = new ElementRef('');
+    this.fivestar = new ElementRef('');
   }
 
 
@@ -27,4 +42,29 @@ export class InfoComponent {
   goToMain() {
     this.router.navigate(['/dashboard/main']);
   }
+
+
+  toggleRating(event: any) {
+    event.stopPropagation();
+    this.isRating = !this.isRating;
+  }
+
+
+  rateMovie(event: any, rating: number) {
+    event.stopPropagation();
+    this.rating = rating;
+  }
+
+
+  async sendRating(event: any) {
+    event.stopPropagation();
+    this.isRating = false;
+    try {
+      let resp = await this.dataService.submitRating(this.rating);
+      await this.dataService.getVideo(resp.video);
+    } catch (error) {
+      console.log(error);
+    } 
+  }
+
 }
