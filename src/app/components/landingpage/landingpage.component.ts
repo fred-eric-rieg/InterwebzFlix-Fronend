@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ButtonPrimaryDirective } from '../../shared/directives/button-primary.directive';
-import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-landingpage',
@@ -16,17 +15,12 @@ export class LandingpageComponent implements OnInit {
   @ViewChild('emailInput') emailElement: ElementRef;
 
 
-  constructor(private router: Router, private renderer: Renderer2, private auth: AuthService) {
+  constructor(private router: Router, private renderer: Renderer2) {
     this.emailElement = new ElementRef('');
   }
 
 
   ngOnInit() {
-    setInterval(async () => {
-      let response = await this.auth.refreshToken();
-      this.auth.setAccessToken(response.access);
-      console.log("%cAccess Token refreshed after 4 minutes.", "color:green");
-    }, 1000 * 60 * 4);
     //this.router.navigate(['/dashboard']);
   }
 
