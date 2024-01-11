@@ -38,7 +38,7 @@ export class FilterPipe implements PipeTransform {
       if ( args[0] === 'new') {
         return videos.filter((video) => {
           // If release date is not older that 1 week
-          return video.release_date > new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 7);
+          return new Date(video.release_date) > new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 7);
         });
       } else if (args[0] === 'tutorial') {
         return videos.filter((video) => {
