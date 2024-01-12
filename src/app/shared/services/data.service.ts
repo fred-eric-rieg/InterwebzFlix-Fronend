@@ -100,7 +100,6 @@ export class DataService {
     this.videoPool.next(updatedVideos);
   }
 
-
   /**
    * Makes a get request to the backend to get the user object.
    * @returns the user object from the backend.
@@ -111,6 +110,17 @@ export class DataService {
       Authorization: 'Bearer ' + this.authService.getAccessToken()
     };
     const user = await lastValueFrom(this.http.get<any>(url, { headers }));
+    this.user.next(user);
+    console.log('user', user);
+  }
+
+
+  async updateUser(body: any) {
+    const url = environment.baseUrl + 'user/';
+    const headers = {
+      Authorization: 'Bearer ' + this.authService.getAccessToken()
+    };
+    const user = await lastValueFrom(this.http.put<any>(url, body, { headers }));
     this.user.next(user);
     console.log('user', user);
   }

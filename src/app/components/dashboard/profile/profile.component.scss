@@ -22,6 +22,12 @@
     gap: 1rem;
 }
 
+.row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 @media screen and (width > 768px) {
     span {
         font-size: 1.5rem;

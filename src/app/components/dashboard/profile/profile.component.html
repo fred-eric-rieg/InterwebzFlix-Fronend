@@ -5,15 +5,60 @@
         <h1>Welcome, {{ user.display_name || 'unnamed wanderer...' }}</h1>
         <h2 *ngIf="user.display_name == ''">What is your name?</h2>
 
-        <div><span>Email: </span><span>{{ user.email }}</span></div>
-        <div><span>First name: </span><span>{{ user.first_name }}</span></div>
-        <div><span>Last name: </span><span>{{ user.last_name }}</span></div>
-        <div><span>Display name: </span><span>{{ user.display_name }}</span></div>
-        <div><span>Birthday: </span><span>{{ user.date_of_birth | date: 'dd.MM.yyyy' }}</span></div>
-    </div>
-    
 
-   
+        <div *ngIf="!isEditing" class="wrapper">
+            
+            <div><span>First name: </span><span>{{ user.first_name }}</span></div>
+            <div><span>Last name: </span><span>{{ user.last_name }}</span></div>
+            <div><span>Display name: </span><span>{{ user.display_name }}</span></div>
+            <div><span>Birthday: </span><span>{{ user.date_of_birth | date: 'dd.MM.yyyy' }}</span></div>
+        </div>
+
+        <button secondaryButton *ngIf="!isEditing" (click)="toggleEdit()">Edit</button>
+
+        
+
+        <div *ngIf="isEditing">
+            <form [formGroup]="profileForm" (ngSubmit)="postIfValid()" class="wrapper">
+                <input type="text" name="first_name" #first [value]="user.first_name" placeholder="first name">
+                <input type="text" name="last_name" #last [value]="user.last_name" placeholder="last name">
+                <input type="text" name="display_name" #display [value]="user.display_name" placeholder="display name">
+                <input type="date" name="date_of_birth" #birth [value]="user.date_of_birth">
+
+                <div clasS="row">
+                    <button secondaryButton (click)="toggleEdit()">Cancel</button>
+                    <button secondaryButton type="submit" #submit>Save</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div *ngIf="!isEditingEmail" class="wrapper">
+            <div><span>Email: </span><span>{{ user.email }}</span></div>
+        </div>
+
+
+        <div *ngIf="isEditingEmail">
+            <form [formGroup]="emailForm" (ngSubmit)="postEmailIfValid()" class="wrapper">
+                <input type="email" name="email" #email [value]="user.email" placeholder="email">
+
+                <div clasS="row">
+                    <button secondaryButton (click)="toggleEditEmail()">Cancel</button>
+                    <button secondaryButton type="submit" #submitEmail>Save</button>
+                </div>
+            </form>
+
+        </div>
+
+        <button secondaryButton *ngIf="!isEditingEmail" (click)="toggleEditEmail()">Edit Email</button>
+
+        
+
+
+    </div>
+
+
+
 
 
 </div>
