@@ -105,12 +105,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.checkForEmailChanges();
     if (this.emailForm.valid) {
       console.log("valid form", this.emailForm.value)
-      //await this.dataService.updateUser(this.emailForm.value);
-      //await this.dataService.getUser();
+      await this.dataService.updateUser(this.emailForm.value);
+      await this.dataService.getUser();
     } else {
       this.showErrorMessage('email');
     }
-    this.renderer.removeAttribute(this.submitEmailButton.nativeElement, 'disabled');
   }
 
 
