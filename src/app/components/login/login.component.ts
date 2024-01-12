@@ -63,6 +63,7 @@ export class LoginComponent {
       if (response.access === undefined) {
         this.showErrorMessage();
       } else {
+        console.log(response);
         this.auth.setAccessToken(response.access);
         this.auth.setRefreshToken(response.refresh);
         this.router.navigate(['dashboard/main']);
