@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { MenuComponent } from './menu/menu.component';
 import { CommonModule } from '@angular/common';
+import { DataService } from '../../shared/services/data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,7 @@ export class DashboardComponent {
   isMenuOpen: boolean = false;
 
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private dataService: DataService) { }
 
   ngOnInit() {
     setInterval(async () => {
@@ -26,6 +27,12 @@ export class DashboardComponent {
       this.authService.setAccessToken(response.access);
       console.log("%cAccess Token refreshed after 4 minutes.", "color:green");
     }, 1000 * 60 * 4);
+
+    this.dataService.getUser();
+    this.dataService.getWatchlist();
+    this.dataService.getVideos();
+    this.dataService.getGenres();
+    this.dataService.getActors();
   }
 
   /**

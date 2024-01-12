@@ -66,6 +66,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+    console.log("unsubscribed from user$");
   }
 
 
@@ -90,12 +91,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.checkForChanges();
     if (this.profileForm.valid) {
       console.log("valid form", this.profileForm.value)
-      //await this.dataService.updateUser(this.profileForm.value);
-      //await this.dataService.getUser();
+      await this.dataService.updateUser(this.profileForm.value);
+      await this.dataService.getUser();
     } else {
       this.showErrorMessage('profile');
     }
-    this.renderer.removeAttribute(this.submitButton.nativeElement, 'disabled');
   }
 
 

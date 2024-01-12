@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -35,7 +35,7 @@ interface movies {
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class DataService implements OnDestroy {
 
   environment = environment;
 
@@ -62,11 +62,11 @@ export class DataService {
 
   constructor(private http: HttpClient, private authService: AuthService) {
     console.log('data service constucted');
-    this.getUser();
-    this.getWatchlist();
-    this.getVideos();
-    this.getGenres();
-    this.getActors();
+  }
+
+
+  ngOnDestroy() {
+    console.log('data service destroyed');
   }
 
   /**

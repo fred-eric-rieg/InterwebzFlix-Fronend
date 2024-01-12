@@ -52,6 +52,11 @@ export class MainComponent implements OnDestroy {
   }
 
 
+  ngOnInit() {
+    
+  }
+
+
   ngOnDestroy() {
     this.watchlistSub.unsubscribe();
   }
