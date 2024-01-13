@@ -1,7 +1,7 @@
 <div class="scrolling">
-    <app-header (menuToggle)="handleMenuToggle($event)"></app-header>
+    <app-header></app-header>
 
-    <app-menu *ngIf="isMenuOpen"></app-menu>
+    <app-menu *ngIf="menuService.isOpen()"></app-menu>
 
     <router-outlet>
 

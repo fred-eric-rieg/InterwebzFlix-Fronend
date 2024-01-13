@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { ButtonPrimaryDirective } from '../../../shared/directives/button-primary.directive';
+import { MenuService } from '../../../shared/services/menu.service';
 
 @Component({
   selector: 'app-header',
@@ -10,16 +11,11 @@ import { ButtonPrimaryDirective } from '../../../shared/directives/button-primar
 })
 export class HeaderComponent {
 
-  isMenuOpen: boolean = false;
-
-  @Output() menuToggle = new EventEmitter<boolean>();
-
-  constructor() { }
+  constructor(private menuService: MenuService) { }
 
 
   toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-    this.menuToggle.emit(this.isMenuOpen);
+    this.menuService.toggleMenu();
     console.log("Menu opened.");
   }
 

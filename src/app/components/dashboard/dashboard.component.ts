@@ -6,6 +6,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { MenuComponent } from './menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../shared/services/data.service';
+import { MenuService } from '../../shared/services/menu.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,7 @@ export class DashboardComponent {
   isMenuOpen: boolean = false;
 
 
-  constructor(private authService: AuthService, private dataService: DataService) { }
+  constructor(private authService: AuthService, private dataService: DataService, public menuService: MenuService) { }
 
   ngOnInit() {
     setInterval(async () => {
@@ -33,13 +34,5 @@ export class DashboardComponent {
     this.dataService.getVideos();
     this.dataService.getGenres();
     this.dataService.getActors();
-  }
-
-  /**
-   * Receives the menuToggle event from the header child-component.
-   * @param isMenuOpen as boolean.
-   */
-  handleMenuToggle(isMenuOpen: boolean) {
-    this.isMenuOpen = isMenuOpen;
   }
 }
