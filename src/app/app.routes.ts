@@ -8,12 +8,14 @@ import { InfoComponent } from './components/dashboard/info/info.component';
 import { VideoComponent } from './components/dashboard/video/video.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
+import { ResetpwComponent } from './components/resetpw/resetpw.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landingpage', pathMatch: 'full' },
     { path: 'landingpage', component: LandingpageComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
+    { path: 'reset-password', component: ResetpwComponent },
 
     { path: 'dashboard', component: DashboardComponent, children: [
         { path: '', redirectTo: 'main', pathMatch: 'full' },

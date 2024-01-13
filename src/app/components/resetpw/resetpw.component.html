@@ -1,0 +1,24 @@
+<div class="center-box" #bg id="bg">
+
+    <img src="/assets/img/bg.png" alt="background image">
+
+    <header>
+        <h1 (click)="goToLandingPage()">Interwebflix</h1>
+    </header>
+
+    <div class="login-container">
+        <h2>Reset Password</h2>
+
+
+        <form class="btn-grp" [formGroup]="reset" (ngSubmit)="postIfValid()">
+            <input type="password" name="new_password1" #passwordInput1 formControlName="new_password1" placeholder="Enter Password">
+            <input type="password" name="new_password2" #passwordInput2 formControlName="new_password2" placeholder="Confirm Password">
+            <button primaryButton type="submit" #submit>Reset</button>
+            <span (click)="togglePasswords()" *ngIf="!isShowing">show passwords</span>
+            <span (click)="togglePasswords()" *ngIf="isShowing">hide passwords</span>
+        </form>
+
+
+    </div>
+
+</div>

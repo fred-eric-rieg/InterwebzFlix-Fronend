@@ -109,4 +109,14 @@ export class AuthService {
     this.setAccessToken('');
     this.setRefreshToken('');
   }
+
+
+  async resetPassword(uidb64: string, token: string, new_password1: string, new_password2: string) {
+    const url = environment.baseUrl + 'reset-password/' + uidb64 + '/' + token + '/';
+    const body = {
+      new_password1: new_password1,
+      new_password2: new_password2
+    };
+    return lastValueFrom(this.http.post<any>(url, body));
+  }
 }
