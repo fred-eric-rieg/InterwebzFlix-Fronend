@@ -1,58 +1,89 @@
 <div class="profile-container">
 
-    <div class="wrapper" *ngIf="dataService.user$ | async as user">
-        <button secondaryButton (click)="goToMain()">Back</button>
-        <h1>Welcome, {{ user.display_name || 'unnamed wanderer...' }}</h1>
-        <h2 *ngIf="user.display_name == ''">What is your name?</h2>
 
 
-        <div *ngIf="!isEditing" class="wrapper">
-            
-            <div><span>First name: </span><span>{{ user.first_name }}</span></div>
-            <div><span>Last name: </span><span>{{ user.last_name }}</span></div>
-            <div><span>Display name: </span><span>{{ user.display_name }}</span></div>
-            <div><span>Birthday: </span><span>{{ user.date_of_birth | date: 'dd.MM.yyyy' }}</span></div>
-        </div>
-
-        <button secondaryButton *ngIf="!isEditing" (click)="toggleEdit()">Edit</button>
-
-        
-
-        <div *ngIf="isEditing">
-            <form [formGroup]="profileForm" (ngSubmit)="postIfValid()" class="wrapper">
-                <input type="text" name="first_name" #first [value]="user.first_name" placeholder="first name">
-                <input type="text" name="last_name" #last [value]="user.last_name" placeholder="last name">
-                <input type="text" name="display_name" #display [value]="user.display_name" placeholder="display name">
-                <input type="date" name="date_of_birth" #birth [value]="user.date_of_birth">
-
-                <div clasS="row">
-                    <button secondaryButton (click)="toggleEdit()">Cancel</button>
-                    <button secondaryButton type="submit" #submit>Save</button>
-                </div>
-            </form>
-
-        </div>
-
-        <div *ngIf="!isEditingEmail" class="wrapper">
-            <div><span>Email: </span><span>{{ user.email }}</span></div>
-        </div>
+    <div class="box" *ngIf="dataService.user$ | async as user">
 
 
-        <div *ngIf="isEditingEmail">
-            <form [formGroup]="emailForm" (ngSubmit)="postEmailIfValid()" class="wrapper">
-                <input type="email" name="email" #email [value]="user.email" placeholder="email">
+        <div class="left-box">
+            <button secondaryButton (click)="goToMain()">Back</button>
+            <h1>Welcome, {{ user.display_name || 'unnamed wanderer...' }}</h1>
+            <h2 *ngIf="user.display_name == ''">What is your name?</h2>
 
-                <div clasS="row">
-                    <button secondaryButton (click)="toggleEditEmail()">Cancel</button>
-                    <button secondaryButton type="submit" #submitEmail>Save</button>
-                </div>
-            </form>
+
+            <div *ngIf="!isEditing" class="wrapper">
+
+                <div><span class="tag">First name: </span><span>{{ user.first_name }}</span></div>
+                <div><span class="tag">Last name: </span><span>{{ user.last_name }}</span></div>
+                <div><span class="tag">Display name: </span><span>{{ user.display_name }}</span></div>
+                <div><span class="tag">Birthday: </span><span>{{ user.date_of_birth | date: 'dd.MM.yyyy' }}</span></div>
+            </div>
+
+            <button secondaryButton *ngIf="!isEditing" (click)="toggleEdit()">Edit Profile</button>
+
+            <div *ngIf="isEditing">
+                <form [formGroup]="profileForm" (ngSubmit)="postProfileIfValid()" class="wrapper">
+                    <input type="text" name="first_name" #first [value]="user.first_name" placeholder="first name">
+                    <input type="text" name="last_name" #last [value]="user.last_name" placeholder="last name">
+                    <input type="text" name="display_name" #display [value]="user.display_name"
+                        placeholder="display name">
+                    <input type="date" name="date_of_birth" #birth [value]="user.date_of_birth">
+
+                    <div clasS="row">
+                        <button secondaryButton (click)="toggleEdit()">Cancel</button>
+                        <button secondaryButton type="submit" #submit>Save</button>
+                    </div>
+                </form>
+
+            </div>
 
         </div>
 
-        <button secondaryButton *ngIf="!isEditingEmail" (click)="toggleEditEmail()">Edit Email</button>
+        <div class="right-box">
 
-        
+            <div *ngIf="!isEditingEmail" class="wrapper">
+                <div><span class="tag">Email: </span><span>{{ user.email }}</span></div>
+            </div>
+
+
+            <div *ngIf="isEditingEmail">
+                <form [formGroup]="emailForm" (ngSubmit)="postEmailIfValid()" class="wrapper">
+                    <input type="email" name="email" #email [value]="user.email" placeholder="email">
+
+                    <div clasS="row">
+                        <button secondaryButton (click)="toggleEditEmail()">Cancel</button>
+                        <button secondaryButton type="submit" #submitEmail>Save</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <button secondaryButton *ngIf="!isEditingEmail" (click)="toggleEditEmail()">Edit Email</button>
+
+
+            <div *ngIf="!isEditingPassword" class="margin-top">
+                <button secondaryButton (click)="toggleEditPassword()">Change Password</button>
+            </div>
+
+            <div *ngIf="isEditingPassword">
+                <form [formGroup]="passwordForm" (ngSubmit)="postPasswordIfValid()" class="wrapper margin-top">
+                    <input type="password" name="old_password" #oldPassword placeholder="Old password">
+                    <input type="password" name="new_password1" #password1 placeholder="New password">
+                    <input type="password" name="new_password2" #password2 placeholder="Repeat password">
+                    <div class="cursor" (click)="showPassword()" *ngIf="!isShowing">show passwords</div>
+                    <div class="cursor" (click)="showPassword()" *ngIf="isShowing">hide passwords</div>
+
+                    <div clasS="row">
+                        <button secondaryButton (click)="toggleEditPassword()">Cancel</button>
+                        <button secondaryButton type="submit" #submitPwButton>Save</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+
 
 
     </div>

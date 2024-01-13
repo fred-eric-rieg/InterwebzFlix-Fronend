@@ -126,6 +126,16 @@ export class DataService implements OnDestroy {
   }
 
 
+  async updateUserPassword(body: any) {
+    const url = environment.baseUrl + 'change-password/';
+    const headers = {
+      Authorization: 'Bearer ' + this.authService.getAccessToken()
+    };
+    await lastValueFrom(this.http.post<any>(url, body, { headers }));
+    console.log('password changed');
+  }
+
+
   async getGenres() {
     const url = environment.baseUrl + 'genres/';
     const headers = {

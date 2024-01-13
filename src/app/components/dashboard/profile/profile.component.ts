@@ -28,13 +28,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild('submitEmail') submitEmailButton: ElementRef;
   @ViewChild('email') email: ElementRef;
 
+  @ViewChild('submitPwButton') submitPwButton: ElementRef;
+  @ViewChild('oldPassword') old_password: ElementRef;
+  @ViewChild('password1') new_password1: ElementRef;
+  @ViewChild('password2') new_password2: ElementRef;
+
   isEditing: boolean = false;
   isEditingEmail: boolean = false;
+  isEditingPassword: boolean = false;
+  isShowing: boolean = false;
 
   emailForm: FormGroup;
   profileForm: FormGroup;
+  passwordForm: FormGroup;
 
   constructor(private router: Router, public dataService: DataService, private renderer: Renderer2) {
+    this.submitPwButton = new ElementRef('');
+    this.old_password = new ElementRef('');
+    this.new_password1 = new ElementRef('');
+    this.new_password2 = new ElementRef('');
+
     this.submitEmailButton = new ElementRef('');
     this.email = new ElementRef('');
 
@@ -43,6 +56,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.lastName = new ElementRef('');
     this.displayName = new ElementRef('');
     this.birthday = new ElementRef('');
+
+    this.passwordForm = new FormGroup({
+      old_password: new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(40)]),
+      new_password1: new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(40)]),
+      new_password2: new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(40)])
+    });
 
     this.emailForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(40)]),
@@ -85,7 +104,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
 
-  async postIfValid() {
+  toggleEditPassword() {
+    this.isEditingPassword = !this.isEditingPassword;
+  }
+
+
+  showPassword() {
+    this.isShowing = !this.isShowing;
+    if (this.isShowing) {
+      this.renderer.setAttribute(this.old_password.nativeElement, 'type', 'text');
+      this.renderer.setAttribute(this.new_password1.nativeElement, 'type', 'text');
+      this.renderer.setAttribute(this.new_password2.nativeElement, 'type', 'text');
+    } else {
+      this.renderer.setAttribute(this.old_password.nativeElement, 'type', 'password');
+      this.renderer.setAttribute(this.new_password1.nativeElement, 'type', 'password');
+      this.renderer.setAttribute(this.new_password2.nativeElement, 'type', 'password');
+    }
+  }
+
+
+  async postProfileIfValid() {
     this.renderer.setAttribute(this.submitButton.nativeElement, 'disabled', 'true');
     this.isEditing = !this.isEditing;
     this.checkForChanges();
@@ -109,6 +147,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.showSuccessMessage(this.emailForm.value.email);
     } else {
       this.showErrorMessage('Email');
+    }
+  }
+
+
+  async postPasswordIfValid() {
+    this.isEditingPassword = !this.isEditingPassword;
+    this.checkForPasswordChanges();
+    if (this.passwordForm.valid) {
+      console.log("valid form", this.passwordForm.value)
+      await this.dataService.updateUserPassword(this.passwordForm.value);
+    } else {
+      this.showErrorMessage('Password');
     }
   }
 
@@ -157,4 +207,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  checkForPasswordChanges() {
+    if (this.old_password.nativeElement.value != '') {
+      this.passwordForm.controls['old_password'].setValue(this.old_password.nativeElement.value);
+    }
+    if (this.new_password1.nativeElement.value != this.old_password.nativeElement.value) {
+      if(this.new_password1.nativeElement.value === this.new_password2.nativeElement.value) {
+        this.passwordForm.controls['new_password1'].setValue(this.new_password1.nativeElement.value);
+        this.passwordForm.controls['new_password2'].setValue(this.new_password2.nativeElement.value);
+      }
+    }
+  }
 }
