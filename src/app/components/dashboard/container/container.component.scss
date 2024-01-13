@@ -1,6 +1,6 @@
 .container {
     position: relative;
-    top: 90px;
+    top: 10px;
 }
 
 .subtitle {
@@ -20,14 +20,10 @@
     overflow-x: scroll;
     box-sizing: border-box;
 
-    ::-webkit-scrollbar {
-        display: none;
-    }
-
-    scrollbar-width: none;
-
     img {
+        position: relative;
         cursor: pointer;
+        object-fit: contain;
         transition: all 225ms ease-in-out;
 
         &:hover {
@@ -36,6 +32,11 @@
             transition: all 225ms ease-in-out;
         }
     }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    scrollbar-width: none;
 }
 
 @media screen and (width > 768px) {
