@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   @ViewChild('submitEmail') submitEmailButton: ElementRef;
   @ViewChild('email') email: ElementRef;
-  
+
   isEditing: boolean = false;
   isEditingEmail: boolean = false;
 
@@ -94,7 +94,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       await this.dataService.updateUser(this.profileForm.value);
       await this.dataService.getUser();
     } else {
-      this.showErrorMessage('profile');
+      this.showErrorMessage('Profile');
     }
   }
 
@@ -105,17 +105,33 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.checkForEmailChanges();
     if (this.emailForm.valid) {
       console.log("valid form", this.emailForm.value)
-      await this.dataService.updateUser(this.emailForm.value);
-      await this.dataService.getUser();
+      //await this.dataService.updateUser(this.emailForm.value);
+      this.showSuccessMessage(this.emailForm.value.email);
     } else {
-      this.showErrorMessage('email');
+      this.showErrorMessage('Email');
     }
   }
 
 
   showErrorMessage(where: string) {
-    console.log("invalid form");
-    where === 'profile' ? console.log(this.profileForm.value) : console.log(this.emailForm.value);
+    let message = this.renderer.createElement('p');
+    message.innerText = where + ' was not valid - aborting update.';
+    this.renderer.addClass(message, 'error-message');
+    this.renderer.appendChild(document.body, message);
+    setTimeout(() => {
+      this.renderer.removeChild(document.body, message);
+    }, 5000);
+  }
+
+
+  showSuccessMessage(email: string) {
+    let message = this.renderer.createElement('p');
+    message.innerText = 'Verification email sent to ' + email + ' Check your inbox.';
+    this.renderer.addClass(message, 'success-message');
+    this.renderer.appendChild(document.body, message);
+    setTimeout(() => {
+      this.renderer.removeChild(document.body, message);
+    }, 5000);
   }
 
 
