@@ -111,8 +111,17 @@ export class AuthService {
   }
 
 
+  async askForReset(email: string) {
+    const url = environment.baseUrl + 'reset-password/';
+    const body = {
+      email: email
+    };
+    return lastValueFrom(this.http.post<any>(url, body));
+  }
+
+
   async resetPassword(uidb64: string, token: string, new_password1: string, new_password2: string) {
-    const url = environment.baseUrl + 'reset-password/' + uidb64 + '/' + token + '/';
+    const url = environment.baseUrl + 'reset-password-confirm/' + uidb64 + '/' + token + '/';
     const body = {
       new_password1: new_password1,
       new_password2: new_password2

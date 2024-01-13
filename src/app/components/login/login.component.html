@@ -15,6 +15,7 @@
             <button primaryButton type="submit" #submit>Sign In</button>
             <span (click)="showPassword()" *ngIf="!isShowing">show password</span>
             <span (click)="showPassword()" *ngIf="isShowing">hide password</span>
+            <span (click)="resetPassword()">RESET password</span>
         </form>
         
     </div>

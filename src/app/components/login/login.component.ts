@@ -42,6 +42,11 @@ export class LoginComponent {
     this.router.navigate(['/landingpage']);
   }
 
+
+  resetPassword() {
+    this.router.navigate(['/ask-for-reset']);
+  }
+
   /**
    * This method is called when the user clicks the submit button.
    * It checks if the form is valid and if so, it calls the login method.

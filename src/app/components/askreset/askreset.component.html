@@ -1,0 +1,19 @@
+<div class="center-box" #bg id="bg">
+
+    <img src="/assets/img/bg.png" alt="background image">
+
+    <header>
+        <h1 (click)="goToLandingPage()">Interwebflix</h1>
+    </header>
+
+    <div class="reset-container">
+        <h2>Request Password Reset</h2>
+
+        <form class="btn-grp" [formGroup]="resetForm" (ngSubmit)="postIfValid()">
+            <input type="email" name="email" #emailInput formControlName="email" placeholder="Your email">
+            <button primaryButton type="submit" #submit>Request Reset</button>
+        </form>
+        
+    </div>
+
+</div>

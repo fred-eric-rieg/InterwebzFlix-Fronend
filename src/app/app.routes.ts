@@ -9,12 +9,14 @@ import { VideoComponent } from './components/dashboard/video/video.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
 import { ResetpwComponent } from './components/resetpw/resetpw.component';
+import { AskresetComponent } from './components/askreset/askreset.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landingpage', pathMatch: 'full' },
     { path: 'landingpage', component: LandingpageComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
+    { path: 'ask-for-reset', component: AskresetComponent },
     { path: 'reset-password/:uidb64/:token', component: ResetpwComponent },
 
     { path: 'dashboard', component: DashboardComponent, children: [

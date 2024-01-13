@@ -78,7 +78,7 @@ export class ResetpwComponent implements OnInit {
       let response = await this.authService.resetPassword(this.uidb64, this.token, this.reset.controls['new_password1'].value, this.reset.controls['new_password2'].value);
       console.log(response);
       // If the password was successfully reset, redirect to the login page.
-
+      this.router.navigate(['/login']);
     } else {
       console.log('invalid');
       this.renderer.setProperty(this.submitButton?.nativeElement, 'disabled', false);
