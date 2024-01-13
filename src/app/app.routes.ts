@@ -15,7 +15,7 @@ export const routes: Routes = [
     { path: 'landingpage', component: LandingpageComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
-    { path: 'reset-password', component: ResetpwComponent },
+    { path: 'reset-password/:uidb64/:token', component: ResetpwComponent },
 
     { path: 'dashboard', component: DashboardComponent, children: [
         { path: '', redirectTo: 'main', pathMatch: 'full' },

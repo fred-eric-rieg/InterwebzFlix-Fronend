@@ -44,7 +44,7 @@ export class ResetpwComponent implements OnInit {
 
   ngOnInit() {
     // Get the uid and token from the url.
-    this.route.queryParams.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.uidb64 = params['uidb64'];
       this.token = params['token'];
       console.log(this.uidb64);
