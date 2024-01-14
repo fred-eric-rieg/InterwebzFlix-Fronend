@@ -47,8 +47,6 @@ export class ResetpwComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.uidb64 = params['uidb64'];
       this.token = params['token'];
-      console.log(this.uidb64);
-      console.log(this.token);
     });
   }
 
@@ -71,17 +69,26 @@ export class ResetpwComponent implements OnInit {
 
 
   async postIfValid() {
-    this.renderer.setProperty(this.submitButton?.nativeElement, 'disabled', true);
+    this.disableSubmitButton();
     if (this.isValidForm()) {
-      console.log('valid form');
-      
-      let response = await this.authService.resetPassword(this.uidb64, this.token, this.reset.controls['new_password1'].value, this.reset.controls['new_password2'].value);
-      console.log(response);
-      // If the password was successfully reset, redirect to the login page.
-      this.router.navigate(['/login']);
+      let response;
+      try {
+        response = await this.authService.resetPassword(this.uidb64, this.token, this.reset.controls['new_password1'].value, this.reset.controls['new_password2'].value);
+      } catch (error) {
+        this.showInfoBox("Invalid or expired token.", "warning");
+        this.activateSubmitButton(4000);
+        return;
+      }
+      if (response.success) {
+        this.showInfoBox("Reset successful. You can login now.", "success");
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 4000);
+        return;
+      }
     } else {
-      console.log('invalid');
-      this.renderer.setProperty(this.submitButton?.nativeElement, 'disabled', false);
+      this.showInfoBox("Passwords invalid or do not match.", "warning");
+      this.activateSubmitButton(4000);
     }
   }
 
@@ -91,6 +98,35 @@ export class ResetpwComponent implements OnInit {
    */
   isValidForm() {
     return this.reset.valid && this.reset.controls['new_password1'].value === this.reset.controls['new_password2'].value;
+  }
+
+
+  showInfoBox(message: string, type: string) {
+    let el = this.renderer.createElement('div');
+    this.renderer.setProperty(el, 'innerText', message);
+    this.renderer.addClass(el, type)
+    this.renderer.appendChild(this.bg?.nativeElement, el);
+    setTimeout(() => {
+      this.renderer.addClass(el, 'down');
+    }, 2000);
+    setTimeout(() => {
+      this.renderer.removeChild(this.bg?.nativeElement, el);
+    }, 4000);
+  }
+
+
+  disableSubmitButton() {
+    this.renderer.setProperty(this.submitButton?.nativeElement, 'disabled', true);
+  }
+
+  /**
+   * Reactivates the submitbutton after a given time.
+   * @param time in ms
+   */
+  activateSubmitButton(time: number) {
+    setTimeout(() => {
+      this.renderer.setProperty(this.submitButton?.nativeElement, 'disabled', false);
+    }, time);
   }
 
 }

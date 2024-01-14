@@ -117,12 +117,32 @@ span {
     align-items: center;
     width: 200px;
     height: 40px;
+    padding: 8px;
     border: 1px solid var(--dark-tertiary);
     border-radius: 4px;
     font-size: 1rem;
     font-weight: 400;
     color: var(--dark-color);
     background-color: var(--dark-primary);
+    animation: moveUp 1s forwards;
+}
+
+.success {
+    position: absolute;
+    bottom: 5%;
+    left: calc(50% - 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 40px;
+    padding: 8px;
+    border: 1px solid var(--dark-success);
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--dark-success);
+    background-color: var(--dark-tertiary);
     animation: moveUp 1s forwards;
 }
 
