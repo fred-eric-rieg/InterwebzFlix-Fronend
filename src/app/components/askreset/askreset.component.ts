@@ -37,27 +37,39 @@ export class AskresetComponent {
     this.router.navigate(['/landingpage']);
   }
 
-
   /**
    * This method is called when the user clicks the submit button.
    * It checks if the form is valid and if so, it calls the login method.
    */
   async postIfValid() {
+    this.deactivateSubmitButton();
     if (this.resetForm.valid) {
       this.resetForm.controls['email'].value;
-      let response = await this.authService.askForReset(this.resetForm.controls['email'].value);
-      console.log(response);
-      this.router.navigate(['/landingpage']);
+      let response;
+      try {
+        response = await this.authService.askForReset(this.resetForm.controls['email'].value);
+      } catch (error) {
+        this.showInfoBox("Reset failed. Email invalid or does not exist.", "warning");
+        this.activateSubmitButton(4000);
+        return;
+      }
+      if (response.success) {
+        this.showInfoBox("Reset successful. Check your email.", "success");
+        setTimeout(() => {
+          this.router.navigate(['/landingpage']);
+        }, 4000);
+      }
     } else {
-      this.showErrorMessage();
+      this.showInfoBox("Reset failed. Email invalid or does not exist.", "warning");
+      this.activateSubmitButton(4000);
     }
   }
 
 
-  showErrorMessage() {
+  showInfoBox(message: string, type: string) {
     let el = this.renderer.createElement('div');
-    this.renderer.setProperty(el, 'innerText', 'Please check your input!');
-    this.renderer.addClass(el, 'warning')
+    this.renderer.setProperty(el, 'innerText', message);
+    this.renderer.addClass(el, type)
     this.renderer.appendChild(this.bg?.nativeElement, el);
     setTimeout(() => {
       this.renderer.addClass(el, 'down');
@@ -65,5 +77,20 @@ export class AskresetComponent {
     setTimeout(() => {
       this.renderer.removeChild(this.bg?.nativeElement, el);
     }, 4000);
+  }
+
+
+  deactivateSubmitButton() {
+    this.renderer.setProperty(this.submitButton?.nativeElement, 'disabled', true);
+  }
+
+  /**
+   * Reactivates the submitbutton after a given time.
+   * @param time in ms
+   */
+  activateSubmitButton(time: number) {
+    setTimeout(() => {
+      this.renderer.setProperty(this.submitButton?.nativeElement, 'disabled', false);
+    }, time);
   }
 }
