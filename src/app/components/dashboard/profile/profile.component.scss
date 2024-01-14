@@ -64,6 +64,7 @@
     border: 1px solid var(--dark-success);
     border-radius: 5px;
     animation: slideIn 1s ease-in-out;
+    z-index: 2;
 }
 
 .error-message {
@@ -80,6 +81,7 @@
     border: 1px solid var(--dark-warn);
     border-radius: 5px;
     animation: slideIn 1s ease-in-out;
+    z-index: 2;
 }
 
 @keyframes slideIn {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonPrimaryDirective } from '../../../shared/directives/button-primary.directive';
 import { ButtonSecondaryDirective } from '../../../shared/directives/button-secondary.directive';
@@ -6,6 +6,7 @@ import { DataService } from '../../../shared/services/data.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnDestroy {
 
   userSub: Subscription;
   userData: any;
@@ -42,7 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   profileForm: FormGroup;
   passwordForm: FormGroup;
 
-  constructor(private router: Router, public dataService: DataService, private renderer: Renderer2) {
+  constructor(private router: Router, public dataService: DataService, private renderer: Renderer2, private authService: AuthService) {
     this.submitPwButton = new ElementRef('');
     this.old_password = new ElementRef('');
     this.new_password1 = new ElementRef('');
@@ -79,9 +80,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-  }
-
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
@@ -94,7 +92,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
 
-  toggleEdit() {
+  toggleEditProfile() {
     this.isEditing = !this.isEditing;
   }
 
@@ -126,11 +124,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
   async postProfileIfValid() {
     this.renderer.setAttribute(this.submitButton.nativeElement, 'disabled', 'true');
     this.isEditing = !this.isEditing;
-    this.checkForChanges();
+    this.setProfileValues();
     if (this.profileForm.valid) {
-      console.log("valid form", this.profileForm.value)
-      await this.dataService.updateUser(this.profileForm.value);
-      await this.dataService.getUser();
+      let response;
+      try {
+        response = await this.dataService.updateUser(this.profileForm.value);
+        await this.dataService.getUser();
+      } catch (error) {
+        this.showErrorMessage('Profile');
+        return;
+      }
+      if (response.success) {
+        this.showSuccessMessage("Profile updated successfully.");
+      }
     } else {
       this.showErrorMessage('Profile');
     }
@@ -142,9 +148,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.isEditingEmail = !this.isEditingEmail;
     this.checkForEmailChanges();
     if (this.emailForm.valid) {
-      console.log("valid form", this.emailForm.value)
-      await this.dataService.updateUser(this.emailForm.value);
-      this.showSuccessMessage(this.emailForm.value.email);
+      let response;
+      try {
+        response = await this.dataService.updateUser(this.emailForm.value);
+      } catch (error) {
+        this.showErrorMessage('Email');
+        return;
+      }
+      if (response.success) {
+        this.showSuccessMessage('Verification email sent to ' + this.emailForm.value.email + ' Check your inbox.');
+        this.authService.logout();
+        this.router.navigate(['/login']);
+      }
     } else {
       this.showErrorMessage('Email');
     }
@@ -155,8 +170,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.isEditingPassword = !this.isEditingPassword;
     this.checkForPasswordChanges();
     if (this.passwordForm.valid) {
-      console.log("valid form", this.passwordForm.value)
-      await this.dataService.updateUserPassword(this.passwordForm.value);
+      let response;
+      try {
+        response = await this.dataService.updateUserPassword(this.passwordForm.value);
+      } catch (error) {
+        this.showErrorMessage('Password');
+        return;
+      }
+      if (response.success) {
+        this.showSuccessMessage('Password updated successfully.');
+      }
     } else {
       this.showErrorMessage('Password');
     }
@@ -174,9 +197,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
 
-  showSuccessMessage(email: string) {
+  showSuccessMessage(response: string) {
     let message = this.renderer.createElement('p');
-    message.innerText = 'Verification email sent to ' + email + ' Check your inbox.';
+    message.innerText = response;
     this.renderer.addClass(message, 'success-message');
     this.renderer.appendChild(document.body, message);
     setTimeout(() => {
@@ -185,19 +208,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
 
-  checkForChanges() {
-    if (this.firstName.nativeElement.value != this.userData.first_name) {
-      this.profileForm.controls['first_name'].setValue(this.firstName.nativeElement.value);
-    }
-    if (this.lastName.nativeElement.value != this.userData.last_name) {
-      this.profileForm.controls['last_name'].setValue(this.lastName.nativeElement.value);
-    }
-    if (this.displayName.nativeElement.value != this.userData.display_name) {
-      this.profileForm.controls['display_name'].setValue(this.displayName.nativeElement.value);
-    }
-    if (this.birthday.nativeElement.value != this.userData.date_of_birth) {
-      this.profileForm.controls['birthday'].setValue(this.birthday.nativeElement.value);
-    }
+  setProfileValues() {
+    this.profileForm.controls['first_name'].setValue(this.firstName.nativeElement.value);
+    this.profileForm.controls['last_name'].setValue(this.lastName.nativeElement.value);
+    this.profileForm.controls['display_name'].setValue(this.displayName.nativeElement.value);
+    this.profileForm.controls['birthday'].setValue(this.birthday.nativeElement.value);
   }
 
 
@@ -213,7 +228,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.passwordForm.controls['old_password'].setValue(this.old_password.nativeElement.value);
     }
     if (this.new_password1.nativeElement.value != this.old_password.nativeElement.value) {
-      if(this.new_password1.nativeElement.value === this.new_password2.nativeElement.value) {
+      if (this.new_password1.nativeElement.value === this.new_password2.nativeElement.value) {
         this.passwordForm.controls['new_password1'].setValue(this.new_password1.nativeElement.value);
         this.passwordForm.controls['new_password2'].setValue(this.new_password2.nativeElement.value);
       }

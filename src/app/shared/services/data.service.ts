@@ -111,7 +111,7 @@ export class DataService implements OnDestroy {
     };
     const user = await lastValueFrom(this.http.get<any>(url, { headers }));
     this.user.next(user);
-    console.log('user', user);
+    return user;
   }
 
 
@@ -121,8 +121,10 @@ export class DataService implements OnDestroy {
       Authorization: 'Bearer ' + this.authService.getAccessToken()
     };
     const user = await lastValueFrom(this.http.put<any>(url, body, { headers }));
-    this.user.next(user);
-    console.log('user', user);
+    if (body.email) {
+      return user;
+    }
+    return user;
   }
 
 
@@ -131,8 +133,8 @@ export class DataService implements OnDestroy {
     const headers = {
       Authorization: 'Bearer ' + this.authService.getAccessToken()
     };
-    await lastValueFrom(this.http.post<any>(url, body, { headers }));
-    console.log('password changed');
+    const pw = await lastValueFrom(this.http.post<any>(url, body, { headers }));
+    return pw;
   }
 
 

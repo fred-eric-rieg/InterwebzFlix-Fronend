@@ -19,7 +19,7 @@
                 <div><span class="tag">Birthday: </span><span>{{ user.date_of_birth | date: 'dd.MM.yyyy' }}</span></div>
             </div>
 
-            <button secondaryButton *ngIf="!isEditing" (click)="toggleEdit()">Edit Profile</button>
+            <button secondaryButton *ngIf="!isEditing" (click)="toggleEditProfile()">Edit Profile</button>
 
             <div *ngIf="isEditing">
                 <form [formGroup]="profileForm" (ngSubmit)="postProfileIfValid()" class="wrapper">
@@ -30,7 +30,7 @@
                     <input type="date" name="date_of_birth" #birth [value]="user.date_of_birth">
 
                     <div clasS="row">
-                        <button secondaryButton (click)="toggleEdit()">Cancel</button>
+                        <button secondaryButton (click)="toggleEditProfile()">Cancel</button>
                         <button secondaryButton type="submit" #submit>Save</button>
                     </div>
                 </form>
