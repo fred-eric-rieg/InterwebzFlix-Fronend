@@ -32,11 +32,11 @@
             transition: all 225ms ease-in-out;
         }
     }
-
-    ::-webkit-scrollbar {
-        display: none;
-    }
     scrollbar-width: none;
+}
+
+.row::-webkit-scrollbar {
+    display: none;
 }
 
 @media screen and (width > 768px) {
