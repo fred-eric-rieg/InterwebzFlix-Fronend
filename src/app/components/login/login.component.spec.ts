@@ -81,7 +81,7 @@ describe('LoginComponent', () => {
     spyOn(component.renderer, 'addClass');
     spyOn(component.renderer, 'appendChild');
     spyOn(component.renderer, 'removeChild');
-    component.showErrorMessage();
+    component.showErrorMessage('Please check your input!');
     expect(component.renderer.createElement).toHaveBeenCalledWith('div');
     expect(component.renderer.setProperty).toHaveBeenCalledWith(jasmine.any(HTMLDivElement), 'innerText', 'Please check your input!');
     expect(component.renderer.addClass).toHaveBeenCalledWith(jasmine.any(HTMLDivElement), 'warning');

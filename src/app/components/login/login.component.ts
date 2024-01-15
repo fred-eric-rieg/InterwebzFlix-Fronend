@@ -57,7 +57,7 @@ export class LoginComponent {
       this.password = this.loginForm.controls['password'].value;
       this.login(this.email, this.password);
     } else {
-      this.showErrorMessage();
+      this.showErrorMessage('Please enter a valid email and password.');
     }
   }
 
@@ -65,17 +65,16 @@ export class LoginComponent {
   async login(email: string, password: string) {
     try {
       let response = await this.auth.loginWithEmailAndPassword(email, password);
-      if (response.access === undefined) {
-        this.showErrorMessage();
-      } else {
-        console.log(response);
+      if (response.access && response.refresh) {
         this.auth.setAccessToken(response.access);
         this.auth.setRefreshToken(response.refresh);
         this.router.navigate(['dashboard/main']);
+      } else {
+        this.showErrorMessage('Invalid email or password. Please try again.');
       }
     }
     catch (error) {
-      console.error(error);
+      this.showErrorMessage('Invalid email or password. Please try again.');
     }
   }
 
@@ -92,9 +91,9 @@ export class LoginComponent {
   }
   
 
-  showErrorMessage() {
+  showErrorMessage(message: string) {
     let el = this.renderer.createElement('div');
-    this.renderer.setProperty(el, 'innerText', 'Please check your input!');
+    this.renderer.setProperty(el, 'innerText', message);
     this.renderer.addClass(el, 'warning')
     this.renderer.appendChild(this.bg?.nativeElement, el);
     setTimeout(() => {
