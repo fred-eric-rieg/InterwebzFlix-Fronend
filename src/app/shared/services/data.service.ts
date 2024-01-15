@@ -138,6 +138,16 @@ export class DataService implements OnDestroy {
   }
 
 
+  async deleteUser() {
+    const url = environment.baseUrl + 'delete-account/';
+    const headers = {
+      Authorization: 'Bearer ' + this.authService.getAccessToken()
+    };
+    const response = await lastValueFrom(this.http.post<any>(url, {}, { headers }));
+    return response;
+  }
+
+
   async getGenres() {
     const url = environment.baseUrl + 'genres/';
     const headers = {

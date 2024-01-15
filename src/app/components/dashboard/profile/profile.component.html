@@ -81,6 +81,21 @@
 
             </div>
 
+            <div *ngIf="!isDeleting" class="margin-top">
+                <button secondaryButton (click)="toggleDelete()">Delete Account</button>
+            </div>
+
+            <div *ngIf="isDeleting">
+                <form [formGroup]="deleteForm" (ngSubmit)="deleteAccountIfValid()" class="wrapper margin-top">
+                    <input type="email" name="deleteEmail" #deleteEmail placeholder="Type your email">
+                    <div clasS="row">
+                        <button secondaryButton (click)="toggleDelete()">Cancel</button>
+                        <button secondaryButton type="submit" #submitDeleteButton>Delete</button>
+                    </div>
+                </form>
+            </div>
+
+
         </div>
 
 

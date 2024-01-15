@@ -34,14 +34,19 @@ export class ProfileComponent implements OnDestroy {
   @ViewChild('password1') new_password1: ElementRef;
   @ViewChild('password2') new_password2: ElementRef;
 
+  @ViewChild('submitDelete') submitDeleteButton: ElementRef;
+  @ViewChild('deleteEmail') deleteEmail: ElementRef;
+
   isEditing: boolean = false;
   isEditingEmail: boolean = false;
   isEditingPassword: boolean = false;
   isShowing: boolean = false;
+  isDeleting: boolean = false;
 
   emailForm: FormGroup;
   profileForm: FormGroup;
   passwordForm: FormGroup;
+  deleteForm: FormGroup;
 
   constructor(private router: Router, public dataService: DataService, private renderer: Renderer2, private authService: AuthService) {
     this.submitPwButton = new ElementRef('');
@@ -57,6 +62,9 @@ export class ProfileComponent implements OnDestroy {
     this.lastName = new ElementRef('');
     this.displayName = new ElementRef('');
     this.birthday = new ElementRef('');
+
+    this.submitDeleteButton = new ElementRef('');
+    this.deleteEmail = new ElementRef('');
 
     this.passwordForm = new FormGroup({
       old_password: new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(40)]),
@@ -75,11 +83,16 @@ export class ProfileComponent implements OnDestroy {
       birthday: new FormControl('', [])
     });
 
+    this.deleteForm = new FormGroup({
+      deleteEmail: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(40)])
+    });
+
     this.userSub = this.dataService.user$.subscribe(user => {
       this.userData = user;
     });
   }
 
+  // TODO: add option to delete your account
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
@@ -188,7 +201,7 @@ export class ProfileComponent implements OnDestroy {
 
   showErrorMessage(where: string) {
     let message = this.renderer.createElement('p');
-    message.innerText = where + ' was not valid - aborting update.';
+    message.innerText = where + ' was not valid - aborting request.';
     this.renderer.addClass(message, 'error-message');
     this.renderer.appendChild(document.body, message);
     setTimeout(() => {
@@ -233,5 +246,36 @@ export class ProfileComponent implements OnDestroy {
         this.passwordForm.controls['new_password2'].setValue(this.new_password2.nativeElement.value);
       }
     }
+  }
+
+
+  toggleDelete() {
+    this.isDeleting = !this.isDeleting;
+    if (this.isEditing) {
+      this.isEditing = !this.isEditing;
+    }
+    if (this.isEditingEmail) {
+      this.isEditingEmail = !this.isEditingEmail;
+    }
+    if (this.isEditingPassword) {
+      this.isEditingPassword = !this.isEditingPassword;
+    }
+  }
+
+
+  deleteAccountIfValid() {
+    this.toggleDelete();
+    if (this.emailIsValid()) {
+      this.dataService.deleteUser();
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    } else {
+      this.showErrorMessage('Delete');
+    }
+  }
+
+
+  emailIsValid() {
+    return this.deleteEmail.nativeElement.value === this.userData.email;
   }
 }
