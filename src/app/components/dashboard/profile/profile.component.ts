@@ -107,16 +107,57 @@ export class ProfileComponent implements OnDestroy {
 
   toggleEditProfile() {
     this.isEditing = !this.isEditing;
+    if (this.isEditingEmail) {
+      this.isEditingEmail = !this.isEditingEmail;
+    }
+    if (this.isDeleting) {
+      this.isDeleting = !this.isDeleting;
+    }
+    if (this.isEditingPassword) {
+      this.isEditingPassword = !this.isEditingPassword;
+    }
   }
 
 
   toggleEditEmail() {
     this.isEditingEmail = !this.isEditingEmail;
+    if (this.isEditing) {
+      this.isEditing = !this.isEditing;
+    }
+    if (this.isDeleting) {
+      this.isDeleting = !this.isDeleting;
+    }
+    if (this.isEditingPassword) {
+      this.isEditingPassword = !this.isEditingPassword;
+    }
   }
 
 
   toggleEditPassword() {
     this.isEditingPassword = !this.isEditingPassword;
+    if (this.isEditing) {
+      this.isEditing = !this.isEditing;
+    }
+    if (this.isEditingEmail) {
+      this.isEditingEmail = !this.isEditingEmail;
+    }
+    if (this.isDeleting) {
+      this.isDeleting = !this.isDeleting;
+    }
+  }
+
+
+  toggleDelete() {
+    this.isDeleting = !this.isDeleting;
+    if (this.isEditing) {
+      this.isEditing = !this.isEditing;
+    }
+    if (this.isEditingEmail) {
+      this.isEditingEmail = !this.isEditingEmail;
+    }
+    if (this.isEditingPassword) {
+      this.isEditingPassword = !this.isEditingPassword;
+    }
   }
 
 
@@ -170,8 +211,6 @@ export class ProfileComponent implements OnDestroy {
       }
       if (response.success) {
         this.showSuccessMessage('Verification email sent to ' + this.emailForm.value.email + ' Check your inbox.');
-        this.authService.logout();
-        this.router.navigate(['/login']);
       }
     } else {
       this.showErrorMessage('Email');
@@ -245,20 +284,6 @@ export class ProfileComponent implements OnDestroy {
         this.passwordForm.controls['new_password1'].setValue(this.new_password1.nativeElement.value);
         this.passwordForm.controls['new_password2'].setValue(this.new_password2.nativeElement.value);
       }
-    }
-  }
-
-
-  toggleDelete() {
-    this.isDeleting = !this.isDeleting;
-    if (this.isEditing) {
-      this.isEditing = !this.isEditing;
-    }
-    if (this.isEditingEmail) {
-      this.isEditingEmail = !this.isEditingEmail;
-    }
-    if (this.isEditingPassword) {
-      this.isEditingPassword = !this.isEditingPassword;
     }
   }
 

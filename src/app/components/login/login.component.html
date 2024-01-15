@@ -10,12 +10,12 @@
         <h2>Sign In</h2>
 
         <form class="btn-grp" [formGroup]="loginForm" (ngSubmit)="postIfValid()">
-            <input type="email" name="email" #emailInput formControlName="email">
-            <input type="password" name="password" #passwordInput formControlName="password">
+            <input type="email" name="email" #emailInput formControlName="email" placeholder="Your email">
+            <input type="password" name="password" #passwordInput formControlName="password" placeholder="Your password">
             <button primaryButton type="submit" #submit>Sign In</button>
             <span (click)="showPassword()" *ngIf="!isShowing">show password</span>
             <span (click)="showPassword()" *ngIf="isShowing">hide password</span>
-            <span (click)="resetPassword()">RESET password</span>
+            <span (click)="resetPassword()">reset password</span>
         </form>
         
     </div>

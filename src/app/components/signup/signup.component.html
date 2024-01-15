@@ -14,6 +14,7 @@
             <input type="email" name="email" #emailInput formControlName="email" placeholder="Email">
             <input type="password" name="password" #passwordInput1 formControlName="password" placeholder="Password">
             <input type="password" name="password2" #passwordInput2 formControlName="password2" placeholder="Password confirmation">
+            <span>Min. 9 characters - 1 number - not too common</span>
             <button primaryButton type="submit" #submit>Register</button>
             <span (click)="togglePasswords()" *ngIf="!isShowing">show passwords</span>
             <span (click)="togglePasswords()" *ngIf="isShowing">hide passwords</span>
