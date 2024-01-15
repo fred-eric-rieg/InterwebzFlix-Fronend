@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonSecondaryDirective } from '../../../shared/directives/button-secondary.directive';
 import { DataService } from '../../../shared/services/data.service';
@@ -55,7 +55,7 @@ export class InfoComponent implements OnDestroy {
   @ViewChild('fourstar') fourstar!: ElementRef;
   @ViewChild('fivestar') fivestar!: ElementRef;
 
-  constructor(private router: Router, public dataService: DataService) {
+  constructor(private router: Router, public dataService: DataService, private renderer: Renderer2) {
     this.onestar = new ElementRef('');
     this.twostar = new ElementRef('');
     this.threestar = new ElementRef('');
@@ -95,6 +95,9 @@ export class InfoComponent implements OnDestroy {
   }
 
 
+  // TODO: add error handling for trying to rate a movie again after already rating it
+  // TODO: add option to change rating
+
   async sendRating(event: any) {
     event.stopPropagation();
     this.isRating = false;
@@ -102,7 +105,7 @@ export class InfoComponent implements OnDestroy {
       let resp = await this.dataService.submitRating(this.rating);
       await this.dataService.getVideo(resp.video);
     } catch (error) {
-      console.log(error);
+      this.showErrorMessage('You have already rated this movie.');
     } 
   }
 
@@ -114,6 +117,17 @@ export class InfoComponent implements OnDestroy {
 
   removeVideoFromList(id: number) {
     this.dataService.removeFromWatchlist(id);
+  }
+
+
+  showErrorMessage(text: string) {
+    let message = this.renderer.createElement('div');
+    message.innerText = text;
+    this.renderer.addClass(message, 'error-message');
+    this.renderer.appendChild(document.body, message);
+    setTimeout(() => {
+      this.renderer.removeChild(document.body, message);
+    }, 5000);
   }
 
 }

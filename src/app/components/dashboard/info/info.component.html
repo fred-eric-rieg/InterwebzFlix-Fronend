@@ -74,8 +74,8 @@
         </div>
 
         <div class="row extra-gap">
-            <span>{{ video.video_quality || 'HD' }}</span>
-            <span>{{ video.sound_quality || '2.1 Stereo'}}</span>
+            <span>{{ video.video_quality || 'No info' }}</span>
+            <span>{{ video.sound_quality || 'Not info'}}</span>
             <span>Language: {{ video.language | language }}</span>
             <span>Subtitles:</span>
             <span *ngFor="let sub of video.subtitles | language">{{ sub }}</span>
@@ -84,10 +84,10 @@
         </div>
 
         <div class="row extra-gap">
-            <span>Country: {{ video.country_of_origin }}</span>
+            <span>Country: {{ video.country_of_origin || 'No info' }}</span>
             <span>Year: {{ video.release_date | date: 'yyyy' }}</span>
-            <span>Length: {{ video.duration }} mins</span>
-            <span>Rated: {{ video.age_rating }}</span>
+            <span>Length: {{ video.duration || 'No info' }} mins</span>
+            <span>Rated: {{ video.age_rating || 'No info' }}</span>
         </div>
 
         <div class="row extra-gap">
@@ -95,7 +95,7 @@
             <span>Actors:</span> <span *ngFor="let actor of video.actors | actor">{{ actor }}</span>
         </div>
 
-        <span class="description">{{ video.description_long }}</span>
+        <span class="description">{{ video.description_long || 'No info' }}</span>
     </div>
 
 </div>

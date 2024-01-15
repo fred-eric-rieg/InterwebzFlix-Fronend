@@ -75,6 +75,34 @@
     transition: all 225ms ease-in-out;
 }
 
+.error-message {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 100px;
+    left: calc(50% - 150px);
+    width: 300px;
+    padding: 1rem;
+    color: var(--dark-warn);
+    text-align: center;
+    background-color: var(--bg-dark-1);
+    border: 1px solid var(--dark-warn);
+    border-radius: 5px;
+    animation: slideIn 1s ease-in-out;
+    z-index: 2;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(200px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 @media screen and (width > 768px) {
     .title {
         font-size: 2rem;
