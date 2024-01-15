@@ -74,8 +74,8 @@
         </div>
 
         <div class="row extra-gap">
-            <span>{{ video.video_quality || 'No info' }}</span>
-            <span>{{ video.sound_quality || 'Not info'}}</span>
+            <span>{{ video.video_quality || 'HD' }}</span>
+            <span>{{ video.sound_quality || '2.1 Stereo'}}</span>
             <span>Language: {{ video.language | language }}</span>
             <span>Subtitles:</span>
             <span *ngFor="let sub of video.subtitles | language">{{ sub }}</span>
