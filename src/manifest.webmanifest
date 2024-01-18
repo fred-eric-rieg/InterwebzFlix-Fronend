@@ -1,7 +1,7 @@
 {
   "name": "InterwebzFlix",
   "short_name": "InterwebzFlix",
-  "theme_color": "#1976d2",
+  "theme_color": "#e50914",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
