@@ -191,7 +191,6 @@ export class DataService implements OnDestroy {
     };
     const watchlist = await lastValueFrom(this.http.get<any>(url, { headers }));
     this.watchlist.next(watchlist);
-    console.log('watchlist', watchlist);
   }
 
 

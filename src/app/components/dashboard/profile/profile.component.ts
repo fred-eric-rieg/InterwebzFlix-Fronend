@@ -96,7 +96,6 @@ export class ProfileComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
-    console.log("unsubscribed from user$");
   }
 
 
