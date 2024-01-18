@@ -2,7 +2,7 @@
   "name": "InterwebzFlix",
   "short_name": "InterwebzFlix",
   "theme_color": "#e50914",
-  "background_color": "#fafafa",
+  "background_color": "#000000",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
