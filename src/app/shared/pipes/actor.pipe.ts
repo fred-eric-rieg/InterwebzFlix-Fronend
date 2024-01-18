@@ -23,8 +23,6 @@ export class ActorPipe implements PipeTransform {
 
   transform(actor: number[] | null, ...args: string[]): string[] | null {
     if (actor) {
-      console.log('genre', actor);
-      console.log('this.genres', this.actors);
       let written = actor.map((item) => {
         // Map an array of genre ids to an array with their corresponding names
         return this.actors?.find((actor) => actor.id === item)?.name || 'Unknown';

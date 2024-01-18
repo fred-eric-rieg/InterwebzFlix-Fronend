@@ -27,7 +27,6 @@ export class MenuComponent {
   logout() {
     this.authService.logout();
     this.menuService.toggleMenu();
-    console.log('%cTokens deleted - logout successful.', 'color: yellow');
     this.router.navigate(['login']);
   }
 

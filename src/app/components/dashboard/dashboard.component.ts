@@ -26,7 +26,6 @@ export class DashboardComponent {
     setInterval(async () => {
       let response = await this.authService.refreshToken();
       this.authService.setAccessToken(response.access);
-      console.log("%cAccess Token refreshed after 4 minutes.", "color:green");
     }, 1000 * 60 * 4);
 
     this.dataService.getUser();

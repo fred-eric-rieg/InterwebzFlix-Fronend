@@ -61,12 +61,10 @@ export class DataService implements OnDestroy {
 
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    console.log('data service constucted');
   }
 
 
   ngOnDestroy() {
-    console.log('data service destroyed');
   }
 
   /**
@@ -203,7 +201,6 @@ export class DataService implements OnDestroy {
       Authorization: 'Bearer ' + this.authService.getAccessToken()
     };
     await lastValueFrom(this.http.post<any>(url, {}, { headers }));
-    console.log('added to watchlist');
     this.getWatchlist();
   }
 
@@ -214,7 +211,6 @@ export class DataService implements OnDestroy {
       Authorization: 'Bearer ' + this.authService.getAccessToken()
     };
     await lastValueFrom(this.http.post<any>(url, {}, { headers }));
-    console.log('removed from watchlist');
     this.getWatchlist();
   }
 }

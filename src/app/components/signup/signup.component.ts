@@ -83,7 +83,6 @@ export class SignupComponent implements OnInit, AfterViewInit {
         let response = await this.auth.register(this.registration.controls['email'].value, this.registration.controls['password'].value, this.registration.controls['password2'].value);
         response.success ? this.successfulRegistration() : this.invalidRegistration();
       } catch (error) {
-        console.log(error);
         this.invalidRegistration();
       }
     } else {

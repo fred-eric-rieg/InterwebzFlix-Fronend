@@ -16,7 +16,6 @@ export class HeaderComponent {
 
   toggleMenu() {
     this.menuService.toggleMenu();
-    console.log("Menu opened.");
   }
 
   
