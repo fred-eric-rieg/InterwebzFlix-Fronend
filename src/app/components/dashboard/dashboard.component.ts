@@ -30,6 +30,12 @@ export class DashboardComponent {
       this.authService.setAccessToken(response.access);
     }, 1000 * 60 * 4);
 
+    // play intro audio file
+    let audio = new Audio();
+    audio.src = "../../../assets/intro.mp3";
+    audio.load();
+    audio.play();
+
     setTimeout(() => {
       this.isIntro = false;
     }, 3000);
