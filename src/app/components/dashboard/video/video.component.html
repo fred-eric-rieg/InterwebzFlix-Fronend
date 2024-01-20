@@ -1,6 +1,7 @@
+<button secondaryButton (click)="goBack()">Back</button>
 <div class="video-container">
-    <button secondaryButton (click)="goBack()">Back</button>
-
+    
+   
     <div class="placeholder" *ngIf="!(dataService.selectedVideo$ | async) as video"></div>
 
     <!-- Important to set application/x-mpegURL as the type of video for HLS -->
