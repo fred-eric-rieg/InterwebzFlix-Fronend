@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ButtonPrimaryDirective } from '../../shared/directives/button-primary.directive';
 import { HeaderComponent } from './header/header.component';
 import { RouterOutlet } from '@angular/router';
@@ -7,6 +7,7 @@ import { MenuComponent } from './menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../shared/services/data.service';
 import { MenuService } from '../../shared/services/menu.service';
+import { ScrollService } from '../../shared/services/scroll.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,14 +16,16 @@ import { MenuService } from '../../shared/services/menu.service';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('topElement') topElement!: ElementRef;
 
   isMenuOpen: boolean = false;
 
   isIntro: boolean = true;
 
 
-  constructor(private authService: AuthService, private dataService: DataService, public menuService: MenuService) { }
+  constructor(private authService: AuthService, private dataService: DataService, public menuService: MenuService, private scrollService: ScrollService) { }
 
   ngOnInit() {
     setInterval(async () => {
@@ -45,5 +48,11 @@ export class DashboardComponent {
     this.dataService.getVideos();
     this.dataService.getGenres();
     this.dataService.getActors();
+  }
+
+
+  ngAfterViewInit() {
+    this.scrollService.setElement(this.topElement);
+    console.log(this.scrollService.getElement());
   }
 }
