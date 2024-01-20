@@ -19,6 +19,8 @@ export class DashboardComponent {
 
   isMenuOpen: boolean = false;
 
+  isIntro: boolean = true;
+
 
   constructor(private authService: AuthService, private dataService: DataService, public menuService: MenuService) { }
 
@@ -27,6 +29,10 @@ export class DashboardComponent {
       let response = await this.authService.refreshToken();
       this.authService.setAccessToken(response.access);
     }, 1000 * 60 * 4);
+
+    setTimeout(() => {
+      this.isIntro = false;
+    }, 3000);
 
     this.dataService.getUser();
     this.dataService.getWatchlist();
