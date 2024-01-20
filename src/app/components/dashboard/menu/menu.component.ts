@@ -15,11 +15,17 @@ import { MenuService } from '../../../shared/services/menu.service';
 export class MenuComponent {
 
 
-  constructor(private router: Router, private authService: AuthService, private menuService: MenuService) {}
+  constructor(private router: Router, private authService: AuthService, private menuService: MenuService) { }
 
 
   goToProfile() {
     this.router.navigate(['/dashboard/profile']);
+    this.menuService.toggleMenu();
+  }
+
+
+  closeMenu(event: any) {
+    event.stopPropagation();
     this.menuService.toggleMenu();
   }
 
