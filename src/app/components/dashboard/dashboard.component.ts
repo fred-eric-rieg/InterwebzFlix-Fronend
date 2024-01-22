@@ -53,6 +53,5 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.scrollService.setElement(this.topElement);
-    console.log(this.scrollService.getElement());
   }
 }
