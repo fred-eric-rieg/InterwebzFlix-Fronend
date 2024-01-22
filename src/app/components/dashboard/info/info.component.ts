@@ -8,6 +8,7 @@ import { GenrePipe } from "../../../shared/pipes/genre.pipe";
 import { ActorPipe } from "../../../shared/pipes/actor.pipe";
 import { LanguagePipe } from '../../../shared/pipes/language.pipe';
 import { Subscription } from 'rxjs';
+import { CountryPipe } from '../../../shared/pipes/country.pipe';
 
 interface movies {
   id: number,
@@ -39,7 +40,7 @@ interface movies {
     standalone: true,
     templateUrl: './info.component.html',
     styleUrl: './info.component.scss',
-    imports: [ButtonSecondaryDirective, ButtonPrimaryDirective, CommonModule, GenrePipe, ActorPipe, LanguagePipe]
+    imports: [ButtonSecondaryDirective, ButtonPrimaryDirective, CommonModule, GenrePipe, ActorPipe, LanguagePipe, CountryPipe]
 })
 export class InfoComponent implements OnDestroy {
   watchlistSub: Subscription;
