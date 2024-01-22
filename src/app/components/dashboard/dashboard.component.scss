@@ -29,7 +29,7 @@
     animation: fade-out 3s ease-in-out forwards;
 
     h1 {
-        font-size: 10rem;
+        font-size: 2rem;
         font-weight: 700;
         color: var(--dark-primary);
         text-align: center;
@@ -45,4 +45,14 @@
     100% {
         scale: 1.5;
     }
+}
+
+
+@media screen and (width > 768px) {
+    .intro {
+        h1 {
+            font-size: 10rem;
+        }
+    }
+    
 }
