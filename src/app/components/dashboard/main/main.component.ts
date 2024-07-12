@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ContainerComponent } from '../container/container.component';
 import { ButtonSecondaryDirective } from '../../../shared/directives/button-secondary.directive';
 import { ButtonPrimaryDirective } from '../../../shared/directives/button-primary.directive';
@@ -39,7 +39,8 @@ interface movies {
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
-export class MainComponent implements OnDestroy {
+export class MainComponent implements OnDestroy, OnInit {
+
   watchlistSub: Subscription;
   watchlist: number[] = [];
 

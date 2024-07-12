@@ -84,7 +84,7 @@
         </div>
 
         <div class="row extra-gap">
-            <span>Country: {{ video.country_of_origin || 'No info' }}</span>
+            <span>Country: {{ video.country_of_origin | country }}</span>
             <span>Year: {{ video.release_date | date: 'yyyy' }}</span>
             <span>Length: {{ video.duration || 'No info' }} mins</span>
             <span>Rated: {{ video.age_rating || 'No info' }}</span>

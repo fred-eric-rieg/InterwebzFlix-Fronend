@@ -1,6 +1,9 @@
+<button secondaryButton (click)="goBack()">Back</button>
 <div class="video-container">
-    <button secondaryButton (click)="goBack()">Back</button>
-    <div class="placeholder" *ngIf="!(dataService.selectedVideo$ | async) as video">
-    </div>
-    <video *ngIf="dataService.selectedVideo$ | async as video" [src]="video.video" controls></video>
+    
+   
+    <div class="placeholder" *ngIf="!(dataService.selectedVideo$ | async) as video"></div>
+
+    <!-- Important to set application/x-mpegURL as the type of video for HLS -->
+    <app-vjs-player *ngIf="dataService.selectedVideo$ | async as video" [options]="{fluid: true, autoplay: true, controls: true, sources: [{ src: video.video, type: 'application/x-mpegURL' }]}"></app-vjs-player>
 </div>

@@ -1,25 +1,49 @@
 <div class="container">
     <span class="subtitle">My List</span>
     <div class="row">
-        <img *ngFor="let video of dataService.videos$ | async | watchlist" [src]="video.thumbnail" alt="thumbnail"
+        <div class="img-box" #listRef *ngFor="let video of dataService.videos$ | async | watchlist; index as i" (mouseenter)="showCard(i, 'list')" (mouseleave)="hideCard(i, 'list')">
+            <img [src]="video.thumbnail" alt="thumbnail"
             (click)="selectVideo(video)">
+            <div class="btn-box">
+                <button primaryButton (click)="playMovie(video)">Play</button>
+                <button secondaryButton (click)="goToInfo(video)">More Info</button>
+            </div>
+        </div>
     </div>
 
     <span class="subtitle">New arrivals</span>
     <div class="row">
-        <img *ngFor="let video of dataService.videos$ | async | filter: 'new'" [src]="video.thumbnail" alt="thumbnail"
+        <div class="img-box" #newRef *ngFor="let video of dataService.videos$ | async | filter: 'new'; index as i" (mouseenter)="showCard(i, 'new')" (mouseleave)="hideCard(i, 'new')">
+            <img  [src]="video.thumbnail" alt="thumbnail"
             (click)="selectVideo(video)">
+            <div class="btn-box">
+                <button primaryButton (click)="playMovie(video)">Play</button>
+                <button secondaryButton (click)="goToInfo(video)">More Info</button>
+            </div>
+        </div>
     </div>
 
     <span class="subtitle">Tutorials</span>
     <div class="row">
-        <img *ngFor="let video of dataService.videos$ | async | filter: 'tutorial'" [src]="video.thumbnail"
+        <div class="img-box" #tutRef *ngFor="let video of dataService.videos$ | async | filter: 'tutorial'; index as i" (mouseenter)="showCard(i, 'tut')" (mouseleave)="hideCard(i, 'tut')">
+            <img [src]="video.thumbnail"
             alt="thumbnail" (click)="selectVideo(video)">
+            <div class="btn-box">
+                <button primaryButton (click)="playMovie(video)">Play</button>
+                <button secondaryButton (click)="goToInfo(video)">More Info</button>
+            </div>
+        </div>
     </div>
 
     <span class="subtitle">Short Films</span>
     <div class="row">
-        <img *ngFor="let video of dataService.videos$ | async | filter: 'short'" [src]="video.thumbnail" alt="thumbnail"
+        <div class="img-box" #shortRef *ngFor="let video of dataService.videos$ | async | filter: 'short'; index as i" (mouseenter)="showCard(i, 'short')" (mouseleave)="hideCard(i, 'short')">
+            <img [src]="video.thumbnail" alt="thumbnail"
             (click)="selectVideo(video)">
+            <div class="btn-box">
+                <button primaryButton (click)="playMovie(video)">Play</button>
+                <button secondaryButton (click)="goToInfo(video)">More Info</button>
+            </div>
+        </div>
     </div>
 </div>

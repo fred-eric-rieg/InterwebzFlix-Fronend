@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="scrolling">
+<div class="scrolling" #topElement>
     
     <app-menu *ngIf="menuService.isOpen()"></app-menu>
 
@@ -7,4 +7,8 @@
 
     </router-outlet>
 
+</div>
+
+<div class="intro" *ngIf="isIntro">
+    <h1>VideoFlix</h1>
 </div>

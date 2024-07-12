@@ -11,12 +11,13 @@ import { MenuService } from '../../../shared/services/menu.service';
 })
 export class HeaderComponent {
 
+  
+  
   constructor(private menuService: MenuService) { }
 
 
   toggleMenu() {
     this.menuService.toggleMenu();
-    console.log("Menu opened.");
   }
 
   

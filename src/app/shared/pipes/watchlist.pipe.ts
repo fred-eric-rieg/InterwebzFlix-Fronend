@@ -41,7 +41,6 @@ export class WatchlistPipe implements PipeTransform {
     this.sub = this.dataService.watchlist$.subscribe((watchlist) => {
       if (watchlist) {
         this.watchlistIds = watchlist.map((video: movies) => video.id);
-        console.log("watchlist sub triggered", this.watchlistIds);
       }
     });
   }
